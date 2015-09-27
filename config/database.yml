@@ -6,7 +6,7 @@
 #
 default: &default
   adapter: postgresql
-  encoding: unicode
+  encoding: utf8
   pool: 5
   host: localhost
   username: <%= ENV['POSTGRES_USERNAME'] %>
@@ -26,3 +26,5 @@ test:
 production:
   <<: *default
   database: gigglr_production
+  username: gigglr
+  password: <%= ENV['ACCENT_DATABASE_PASSWORD'] %>
