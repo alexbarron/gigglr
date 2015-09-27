@@ -1,4 +1,18 @@
 Rails.application.routes.draw do
+  get 'comedians/index'
+
+  get 'comedians/show'
+
+  get 'comedians/new'
+
+  get 'comedians/create'
+
+  get 'comedians/edit'
+
+  get 'comedians/update'
+
+  get 'comedians/destroy'
+
   devise_for :users
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
