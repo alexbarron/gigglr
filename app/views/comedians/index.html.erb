@@ -1,2 +1,7 @@
-<h1>Comedians#index</h1>
-<p>Find me in app/views/comedians/index.html.erb</p>
+<%= link_to 'Add comedian', new_comedian_path %>
+<h1>Comedians Index</h1>
+<ul>
+<% @comedians.each do |comedian| %>
+	<li><%= comedian.name %></li>
+<% end %>
+</ul>
