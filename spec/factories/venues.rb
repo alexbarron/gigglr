@@ -2,7 +2,11 @@
 
 FactoryGirl.define do
   factory :venue do
-    name "MyString"
-    address "MyString"
+    name "Alejandro's Comedy Shop"
+    address
+
+    factory :invalid_venue do
+    	name nil
+    end
   end
 end

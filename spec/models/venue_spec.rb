@@ -1,5 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe Venue, :type => :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  it "has a valid factory" do
+  	expect(build(:venue)).to be_valid
+  end
+  it "is invalid without a name" do
+  	venue = build(:venue, name: nil)
+  	venue.valid?
+  	expect(venue.errors[:name]).to include("can't be blank")
+  end
 end
