@@ -1,7 +1,9 @@
-<%= link_to 'Add comedian', new_comedian_path %>
+<% if user_signed_in? && current_user.admin? %>
+	<%= link_to 'Add comedian', new_comedian_path %>
+<% end %>
 <h1>Comedians Index</h1>
 <ul>
 <% @comedians.each do |comedian| %>
-	<li><%= comedian.name %></li>
+	<li><%= link_to comedian.name, comedian %></li>
 <% end %>
 </ul>
