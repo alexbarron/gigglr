@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :shows
   resources :comedians
   resources :venues
 

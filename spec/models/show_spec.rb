@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Show, :type => :model, focus: true do
+RSpec.describe Show, :type => :model do
   it "has a valid factory" do
   	expect(build(:show)).to be_valid
   end

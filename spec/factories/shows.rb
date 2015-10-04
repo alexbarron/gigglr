@@ -6,5 +6,9 @@ FactoryGirl.define do
 	description { Faker::Lorem.paragraph }
     showtime { Faker::Time.forward(60, :evening) }
     venue
+
+    factory :invalid_show do
+    	name nil
+    end
   end
 end
