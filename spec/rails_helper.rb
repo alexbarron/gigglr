@@ -36,7 +36,7 @@ RSpec.configure do |config|
   config.include LoginMacros
 
   # Run focus tests only
-  config.filter_run focus: true
+  #config.filter_run focus: true
 
   # Include Devise helpers
   config.include Devise::TestHelpers, :type => :controller

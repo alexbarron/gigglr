@@ -97,12 +97,14 @@ RSpec.describe VenuesController, :type => :controller do
     describe 'POST #create' do
       it 'redirects to root' do
         post :create, id: create(:venue),
-          venue: attributes_for(:venue)
+          venue: attributes_for(:venue, 
+            address_attributes: attributes_for(:address))
         expect(response).to redirect_to root_path
       end
       it 'does not save venue' do
         expect{
-          post :create, venue: attributes_for(:venue)
+          post :create, venue: attributes_for(:venue,
+              address_attributes: attributes_for(:address))
         }.not_to change(Venue, :count)
       end
     end
@@ -161,20 +163,28 @@ RSpec.describe VenuesController, :type => :controller do
       context "with valid attributes" do
         it "saves the new venue in the database" do
           expect{
-            post :create, venue: attributes_for(:venue)
+            post :create, venue: attributes_for(:venue,
+              address_attributes: attributes_for(:address))
           }.to change(Venue, :count).by(1)
         end
 
-        it "redirects to :show template" do
-          post :create, venue: attributes_for(:venue)
-          expect(response).to redirect_to venue_path(assigns[:venue])
+        it "redirects to :index template" do
+          post :create, venue: attributes_for(:venue,
+              address_attributes: attributes_for(:address))
+          expect(response).to redirect_to venues_url
         end
       end
 
       context "with invalid attributes" do
-        it "does not save the new venue in the database" do
+        it "does not save invalid venue to database" do
           expect{
             post :create, venue: attributes_for(:invalid_venue)
+          }.not_to change(Venue, :count)
+        end
+
+        it "does not save venue without address to database" do
+          expect{
+            post :create, venue: attributes_for(:no_address_venue)
           }.not_to change(Venue, :count)
         end
 
@@ -185,7 +195,7 @@ RSpec.describe VenuesController, :type => :controller do
       end
     end
 
-    describe "GET edit" do
+    describe "GET edit"  do
       it "renders :edit template" do
         venue = create(:venue)
         get :edit, id: venue

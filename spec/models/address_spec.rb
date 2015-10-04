@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Address, :type => :model, focus: true do
+RSpec.describe Address, :type => :model do
   it "is invalid without a street address" do
   	address = build(:address, street_address: nil)
   	address.valid?
