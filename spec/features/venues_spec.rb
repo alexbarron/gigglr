@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Venues', focus: true do
+describe 'Venues' do
 	shared_examples 'public view of venues' do
 		scenario "access venue page from venue index" do
 			venue = create(:venue)
