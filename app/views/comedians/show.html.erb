@@ -1,3 +1,7 @@
 <h1>Comedians#show</h1>
 <p><%= @comedian.name %></p>
 <p><%= @comedian.description %></p>
+<% if user_signed_in? && current_user.admin? %>
+	<%= link_to 'Edit', edit_comedian_path(@comedian) %>
+	<%= link_to 'Delete', comedian_path(@comedian), method: :delete, data: { confirm: "Are you sure?" } %>
+<% end %>
