@@ -224,13 +224,13 @@ RSpec.describe VenuesController, :type => :controller do
           expect(response).to redirect_to @venue
         end
       end
-      context "invalid attributes" do
+      context "invalid attributes", focus: true do
         it "does not change the venue's attributes" do
           patch :update, id: @venue,
             venue: attributes_for(:venue,
               name: nil)
           @venue.reload
-          expect(@venue.name).to eq @venue.name
+          expect(@venue.name).to eq 'Comedy Store'
         end
         it "re-renders the :edit template" do
           patch :update, id: @venue,
