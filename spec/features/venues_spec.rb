@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Venues' do
+describe 'Venues', focus: true do
 	shared_examples 'public view of venues' do
 		scenario "access venue page from venue index" do
 			venue = create(:venue)
@@ -21,7 +21,7 @@ describe 'Venues' do
 		end
 		it_behaves_like 'public view of venues'
 
-		scenario 'adds a venue', focus: true do
+		scenario 'adds a venue' do
 			visit root_path
 			click_link 'Venues'
 
@@ -33,12 +33,40 @@ describe 'Venues' do
 			fill_in 'City', with: 'Los Angeles'
 			fill_in 'State', with: 'CA'
 			fill_in 'Zip', with: '12345'
-			click_button 'Create Venue'
+			click_button 'Submit'
 
 			expect(current_path).to eq venues_path
 			expect(page).to have_content 'Successfully created venue'
 			expect(page).to have_content 'Laugh Factory'
 			expect(page).to have_content 'Los Angeles'
+		end
+
+		scenario 'edits a venue' do
+			venue = create(:venue)
+			visit root_path
+			click_link 'Venues'
+			expect(page).to have_content venue.name
+			expect(page).to have_content venue.address.city
+			click_link venue.name
+			expect(current_path).to eq venue_path(venue)
+			click_link 'Edit'
+			fill_in 'Name', with: 'Comedy Store'
+			fill_in 'City', with: 'Hollywood'
+			click_button 'Submit'
+			expect(current_path).to eq venue_path(venue)
+			expect(page).to have_content 'Comedy Store'
+			expect(page).to have_content 'Hollywood'
+		end
+
+		scenario 'deletes a venue' do
+			venue = create(:venue)
+			visit root_path
+			click_link 'Venues'
+			click_link venue.name
+			expect(current_path).to eq venue_path(venue)
+			click_link 'Delete'
+			expect(current_path).to eq venues_path
+			expect(page).not_to have_content venue.name
 		end
 	end
 

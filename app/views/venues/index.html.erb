@@ -2,6 +2,6 @@
 <%= link_to 'Add venue', new_venue_path %>
 <ul>
 <% @venues.each do |venue| %>
-	<li><%= link_to venue.name, venue %> - <%= venue.address.city_state %></li>
+	<li><%= link_to venue.name + " - " + venue.address.city_state, venue %></li>
 <% end %>
 </ul>

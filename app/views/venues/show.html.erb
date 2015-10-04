@@ -1,3 +1,5 @@
 <h1>Venues#show</h1>
 <%= @venue.name %><br />
 <%= @venue.address.full_address %>
+<%= link_to 'Edit', edit_venue_path(@venue) %>
+<%= link_to 'Delete', venue_path(@venue), method: :delete, data: { confirm: "Are you sure?" } %>
