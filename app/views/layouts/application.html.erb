@@ -8,6 +8,7 @@
 </head>
 <body>
 <%= link_to 'Comedians', comedians_path %>
+<%= link_to 'Venues', venues_path %>
 <% if !user_signed_in? %>
 <%= link_to 'Sign In', new_user_session_path %>
 <% end %>

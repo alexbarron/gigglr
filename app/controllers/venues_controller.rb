@@ -11,12 +11,13 @@ class VenuesController < ApplicationController
 
   def new
     @venue = Venue.new
+    @venue.address = Address.new
   end
 
   def create
     @venue = Venue.new(venue_params)
     if @venue.save
-      redirect_to @venue, notice: 'Venue added successfully'
+      redirect_to venues_url, notice: 'Successfully created venue'
     else
       render :new
     end
@@ -45,6 +46,6 @@ class VenuesController < ApplicationController
   end
 
   def venue_params
-    params.require(:venue).permit(:name, :address)
+    params.require(:venue).permit(:name, address_attributes: [:street_address, :city, :state, :zip])
   end
 end
