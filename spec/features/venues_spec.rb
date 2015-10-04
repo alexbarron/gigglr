@@ -14,6 +14,22 @@ describe 'Venues' do
 		end
 	end
 
+	shared_examples 'non-admin view of venues' do
+		scenario 'cannot see add venue link' do
+			visit root_path
+			click_link 'Venues'
+			expect(page).not_to have_link 'Add venue'
+		end
+		scenario 'cannot see edit or delete venue link' do
+			venue = create(:venue)
+			visit root_path
+			click_link 'Venues'
+			click_link venue.name
+			expect(page).not_to have_link 'Edit'
+			expect(page).not_to have_link 'Delete'
+		end
+	end
+
 	context 'as an admin' do
 		before :each do
 			@admin = create(:admin)
@@ -71,11 +87,19 @@ describe 'Venues' do
 	end
 
 	context 'as a user' do
+		before :each do
+			@user = create(:user)
+			sign_in(@user)
+		end
+		it_behaves_like 'public view of venues'
+		it_behaves_like 'non-admin view of venues'
+
 
 	end
 
 	context 'as a guest' do
-
+		it_behaves_like 'public view of venues'
+		it_behaves_like 'non-admin view of venues'
 	end
 
 

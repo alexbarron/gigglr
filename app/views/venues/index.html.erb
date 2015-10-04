@@ -1,5 +1,7 @@
 <h1>Venues#index</h1>
-<%= link_to 'Add venue', new_venue_path %>
+<% if user_signed_in? && current_user.admin? %>
+	<%= link_to 'Add venue', new_venue_path %>
+<% end %>
 <ul>
 <% @venues.each do |venue| %>
 	<li><%= link_to venue.name + " - " + venue.address.city_state, venue %></li>
