@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe ShowsController, :type => :controller, focus: true do
+RSpec.describe ShowsController, :type => :controller do
 
   shared_examples 'public access to shows' do
     describe 'GET index' do

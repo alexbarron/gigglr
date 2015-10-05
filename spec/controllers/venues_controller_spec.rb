@@ -224,7 +224,7 @@ RSpec.describe VenuesController, :type => :controller do
           expect(response).to redirect_to @venue
         end
       end
-      context "invalid attributes", focus: true do
+      context "invalid attributes" do
         it "does not change the venue's attributes" do
           patch :update, id: @venue,
             venue: attributes_for(:venue,

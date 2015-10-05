@@ -15,7 +15,7 @@ class ShowsController < ApplicationController
   def create
     @show = Show.new(show_params)
     if @show.save
-      redirect_to shows_url, notice: 'Show added successfully'
+      redirect_to shows_url, notice: 'Successfully created show'
     else
       render 'new'
     end
@@ -26,7 +26,7 @@ class ShowsController < ApplicationController
 
   def update
     if @show.update(show_params)
-      redirect_to @show, notice: 'Show updated successfully'
+      redirect_to @show, notice: 'Successfully updated show'
     else
       render 'edit'
     end

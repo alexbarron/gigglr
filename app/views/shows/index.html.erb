@@ -1,2 +1,9 @@
 <h1>Shows#index</h1>
-<p>Find me in app/views/shows/index.html.erb</p>
+<ul>
+<% @shows.each do |show| %>
+	<li><%= link_to show.name, show %> - <%= show.showtime %></li>
+<% end %>
+</ul>
+<% if user_signed_in? && current_user.admin? %>
+	<%= link_to 'Add show', new_show_path %>
+<% end %>

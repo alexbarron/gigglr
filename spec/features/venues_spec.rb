@@ -40,8 +40,6 @@ describe 'Venues' do
 		scenario 'adds a venue' do
 			visit root_path
 			click_link 'Venues'
-
-			expect(page).not_to have_content 'Laugh Factory'
 			click_link 'Add venue'
 
 			fill_in 'Name', with: 'Laugh Factory'
