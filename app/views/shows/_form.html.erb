@@ -2,6 +2,12 @@
 	<%= f.input :name %>
 	<%= f.input :description %>
 	<%= f.input :showtime %>
-	<%= f.input :venue_id %>
+
+	<%= f.label :venue_id %><br>
+    <%= f.select(:venue_id) do %>
+      <% @venues.each do |venue| -%>
+        <%= content_tag(:option, venue.name, value: venue.id) %>
+      <% end %>
+    <% end %>
 	<%= f.submit 'Submit' %>
 <% end %>

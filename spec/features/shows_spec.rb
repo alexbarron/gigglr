@@ -41,7 +41,7 @@ describe 'Shows' do
 		it_behaves_like 'public view of shows'
 
 		scenario 'adds a show' do
-			venue = create(:venue, id: 1)
+			venue = create(:venue, name: "Hollywood Improv")
 			visit root_path
 			click_link 'Shows'
 			click_link 'Add show'
@@ -53,7 +53,7 @@ describe 'Shows' do
 			select '10', from: 'show[showtime(3i)]'
 			select '20', from: 'show[showtime(4i)]'
 			select '00', from: 'show[showtime(5i)]'
-			fill_in 'Venue', with: '1'
+			select "Hollywood Improv", from: 'show[venue_id]'
 			click_button 'Submit'
 
 			expect(current_path).to eq shows_path
@@ -64,7 +64,7 @@ describe 'Shows' do
 
 		scenario 'edits a show' do
 			show = create(:show)
-			venue = create(:venue, id: 1)
+			venue = create(:venue, name: 'The Punchline SF')
 			visit root_path
 			click_link 'Shows'
 			expect(page).to have_content show.name
@@ -78,13 +78,14 @@ describe 'Shows' do
 			select '10', from: 'show[showtime(3i)]'
 			select '20', from: 'show[showtime(4i)]'
 			select '00', from: 'show[showtime(5i)]'
-			fill_in 'Venue', with: '1'
+			select "The Punchline SF", from: 'show[venue_id]'
 			click_button 'Submit'
 			expect(current_path).to eq show_path(show)
 			expect(page).to have_content 'Successfully updated show'
 			expect(page).to have_content 'Jim Jefferies at the Punchline'
 			expect(page).to have_content 'Australian comedian comes to San Francisco'
 			expect(page).to have_content '2015-10-10 20:00:00'
+			expect(page).to have_content "The Punchline SF"
 		end
 
 		scenario 'deletes a show' do

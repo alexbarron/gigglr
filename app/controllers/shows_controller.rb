@@ -10,6 +10,7 @@ class ShowsController < ApplicationController
 
   def new
     @show = Show.new
+    @venues = Venue.all
   end
 
   def create
@@ -22,6 +23,7 @@ class ShowsController < ApplicationController
   end
 
   def edit
+    @venues = Venue.all
   end
 
   def update
