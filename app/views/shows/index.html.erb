@@ -1,7 +1,8 @@
 <h1>Shows#index</h1>
 <ul>
 <% @shows.each do |show| %>
-	<li><%= link_to show.name, show %> - <%= show.showtime %></li>
+	<li>
+	<%= link_to "#{show.name}: #{show.showtime} at #{show.venue.name}, #{show.venue.address.full_address}", show %></li>
 <% end %>
 </ul>
 <% if user_signed_in? && current_user.admin? %>

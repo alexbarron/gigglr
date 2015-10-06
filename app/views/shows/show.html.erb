@@ -2,7 +2,8 @@
 <%= @show.name %></br>
 <%= @show.description %></br>
 <%= @show.showtime %></br>
-<%= @show.venue_id %></br>
+<%= @show.venue.name %></br>
+<%= @show.venue.address.full_address %></br>
 
 <% if user_signed_in? && current_user.admin? %>
 	<%= link_to 'Delete', show_path(@show), method: :delete, data: { confirm: 'Are you sure?' } %>

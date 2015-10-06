@@ -6,12 +6,14 @@ describe 'Shows' do
 			show = create(:show)
 			visit root_path
 			click_link 'Shows'
-			expect(page).to have_content show.name
-			click_link show.name
+			expect(page).to have_content "#{show.name}: #{show.showtime} at #{show.venue.name}"
+			click_link "#{show.name}: #{show.showtime} at #{show.venue.name}"
 			expect(current_path).to eq show_path(show.id)
 			expect(page).to have_content show.name
 			expect(page).to have_content show.showtime
 			expect(page).to have_content show.description
+			expect(page).to have_content show.venue.name
+			expect(page).to have_content show.venue.address.full_address
 		end
 	end
 
@@ -39,6 +41,7 @@ describe 'Shows' do
 		it_behaves_like 'public view of shows'
 
 		scenario 'adds a show' do
+			venue = create(:venue, id: 1)
 			visit root_path
 			click_link 'Shows'
 			click_link 'Add show'
@@ -61,6 +64,7 @@ describe 'Shows' do
 
 		scenario 'edits a show' do
 			show = create(:show)
+			venue = create(:venue, id: 1)
 			visit root_path
 			click_link 'Shows'
 			expect(page).to have_content show.name
@@ -75,7 +79,6 @@ describe 'Shows' do
 			select '20', from: 'show[showtime(4i)]'
 			select '00', from: 'show[showtime(5i)]'
 			fill_in 'Venue', with: '1'
-			#fill_in 'Showtime', with: '2015-10-04 21:52:32'
 			click_button 'Submit'
 			expect(current_path).to eq show_path(show)
 			expect(page).to have_content 'Successfully updated show'
