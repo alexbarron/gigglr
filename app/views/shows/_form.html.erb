@@ -3,7 +3,7 @@
 	<%= f.input :description %>
 	<%= f.input :showtime %>
 
-	<%= f.label :venue_id %><br>
+	<%= f.label :venue_id %>
     <%= f.select(:venue_id) do %>
       <% @venues.each do |venue| -%>
         <%= content_tag(:option, venue.name, value: venue.id) %>

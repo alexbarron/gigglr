@@ -3,7 +3,9 @@ require 'rails_helper'
 describe 'Venues' do
 	shared_examples 'public view of venues' do
 		scenario "access venue page from venue index" do
-			venue = create(:venue)
+			venue = create(:venue, id: 1)
+			show = create(:show, name: "Louis CK In Santa Monica", 
+				venue_id: 1)
 			visit root_path
 			click_link 'Venues'
 			expect(page).to have_content venue.name
@@ -11,6 +13,7 @@ describe 'Venues' do
 			expect(current_path).to eq venue_path(venue.id)
 			expect(page).to have_content venue.name
 			expect(page).to have_content venue.address.full_address
+			expect(page).to have_content "Louis CK In Santa Monica"
 		end
 	end
 

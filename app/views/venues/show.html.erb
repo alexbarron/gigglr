@@ -5,3 +5,14 @@
 	<%= link_to 'Edit', edit_venue_path(@venue) %>
 	<%= link_to 'Delete', venue_path(@venue), method: :delete, data: { confirm: "Are you sure?" } %>
 <% end %>
+
+<h2>Shows at this venue</h2>
+<% if @venue.shows.empty? %>
+	<p>Sorry, no shows scheduled here yet!</p>
+<% else %>
+	<ul>
+	<% @venue.shows.each do |show| %>
+		<li><%= link_to "#{show.name}: #{show.showtime}", show %></li>
+	<% end %>
+	</ul>
+<% end %>
