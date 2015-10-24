@@ -3,6 +3,8 @@ Rails.application.routes.draw do
   resources :shows
   resources :comedians
   resources :venues
+  resources :bookings, only: [:create, :destroy]
+
 
   devise_for :users
   # The priority is based upon order of creation: first created -> highest priority.

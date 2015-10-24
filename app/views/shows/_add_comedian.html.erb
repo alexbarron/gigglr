@@ -1,0 +1,10 @@
+<%= simple_form_for @show.booked_comedians.build do |f| %>
+    <%= f.hidden_field :show_id, value: @show.id %>	
+	<%= f.label :comedian_id %>
+	<%= f.select(:comedian_id) do %>
+		<% @comedians.each do |comedian| %>
+			<%= content_tag(:option, comedian.name, value: comedian.id) %>
+		<% end %>
+	<% end %>
+	<%= f.submit 'Add Comedian' %>
+<% end %>

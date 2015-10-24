@@ -6,6 +6,11 @@ class ShowsController < ApplicationController
   end
 
   def show
+    @booked_comedians = @show.comedians
+    @comedians = Comedian.all.sort { |a,b| a.name.downcase <=> b.name.downcase }
+    @booked_comedians.each do |x|
+      @comedians.delete(x)
+    end
   end
 
   def new

@@ -6,6 +6,9 @@ class ApplicationController < ActionController::Base
   private
 
   def admin_user
-  	redirect_to(root_url) unless current_user.admin?
+  	if !user_signed_in? || !current_user.admin?
+  		redirect_to(root_url)
+  	end
+
   end
 end

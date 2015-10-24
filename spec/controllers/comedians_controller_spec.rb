@@ -234,7 +234,7 @@ RSpec.describe ComediansController, :type => :controller do
       before :each do
         @comedian = create(:comedian)
       end
-      it "redirect to :index" do
+      it "redirects to :index" do
         delete :destroy, id: @comedian
         expect(response).to redirect_to comedians_path
       end

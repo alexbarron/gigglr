@@ -5,5 +5,8 @@ FactoryGirl.define do
   	comedian
   	show
   	
+  	factory :invalid_booking do
+  		show_id nil
+  	end
   end
 end
