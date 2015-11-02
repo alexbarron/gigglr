@@ -3,7 +3,7 @@ module LoginMacros
 	# Login method fo feature spec
 	def sign_in(user)
 		visit root_path
-		click_link 'Sign In'
+		click_button "Sign In / Sign Up"
 		fill_in 'Email', with: user.email
 		fill_in 'Password', with: user.password
 		click_button 'Sign In'

@@ -28,7 +28,7 @@ describe 'Shows' do
 			visit root_path
 			click_link 'Shows'
 			click_link show.name
-			expect(page).not_to have_link 'Edit'
+			expect(page).not_to have_link 'Edit Show'
 			expect(page).not_to have_link 'Delete'
 		end
 	end
@@ -70,7 +70,7 @@ describe 'Shows' do
 			expect(page).to have_content show.name
 			click_link show.name
 			expect(current_path).to eq show_path(show)
-			click_link 'Edit'
+			click_link 'Edit Show'
 			fill_in 'Name', with: 'Jim Jefferies at the Punchline'
 			fill_in 'Description', with: 'Australian comedian comes to San Francisco'
 			select '2015', from: 'show[showtime(1i)]'

@@ -24,7 +24,7 @@ feature 'Comedians' do
 			visit root_path
 			click_link 'Comedians'
 			click_link comedian.name
-			expect(page).not_to have_link 'Edit'
+			expect(page).not_to have_link 'Edit Comedian'
 			expect(page).not_to have_link 'Delete'
 		end
 	end
@@ -53,7 +53,7 @@ feature 'Comedians' do
 			expect(page).to have_content comedian.name
 			click_link comedian.name
 			expect(current_path).to eq comedian_path(comedian)
-			click_link 'Edit'
+			click_link 'Edit Comedian'
 			fill_in 'Name', with: 'Jerry Seinfeld'
 			fill_in 'Description', with: 'From the hit TV show Seinfeld.'
 			click_button 'Submit'

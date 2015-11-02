@@ -26,6 +26,6 @@
 
 <% if user_signed_in? && current_user.admin? %>
 	<%= link_to 'Delete', show_path(@show), method: :delete, data: { confirm: 'Are you sure?' } %>
-	<%= link_to 'Edit', edit_show_path(@show) %>
+	<%= link_to 'Edit Show', edit_show_path(@show) %>
 	<%= render 'add_comedian' unless @comedians.empty? %>
 <% end %>

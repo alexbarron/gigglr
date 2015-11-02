@@ -28,7 +28,7 @@ describe 'Venues' do
 			visit root_path
 			click_link 'Venues'
 			click_link venue.name
-			expect(page).not_to have_link 'Edit'
+			expect(page).not_to have_link 'Edit Venue'
 			expect(page).not_to have_link 'Delete'
 		end
 	end
@@ -66,7 +66,7 @@ describe 'Venues' do
 			expect(page).to have_content venue.address.city
 			click_link venue.name
 			expect(current_path).to eq venue_path(venue)
-			click_link 'Edit'
+			click_link 'Edit Venue'
 			fill_in 'Name', with: 'Comedy Store'
 			fill_in 'City', with: 'Hollywood'
 			click_button 'Submit'
