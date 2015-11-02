@@ -5,18 +5,18 @@ RSpec.describe RelationshipsController, :type => :controller do
 		@comedian = create(:comedian)
 		@user = create (:user)
 	end
-	describe 'correct user access' do
+	describe 'user access' do
 		before :each do
 			sign_in(@user)
 		end
 		describe 'POST #create' do
 			it 'saves the new relationship to the database' do
 				expect{
-					post :create, relationship: attributes_for(:relationship, comedian_id: @comedian.id, user_id: @user.id)
+					post :create, comedian_id: @comedian.id
 				}.to change(Relationship, :count).by(1)
 			end
 			it 'redirects to @comedian' do
-				post :create, relationship: attributes_for(:relationship, comedian_id: @comedian.id, user_id: @user.id)
+				post :create, comedian_id: @comedian.id
 				expect(response).to redirect_to @comedian
 			end
 		end
@@ -36,39 +36,6 @@ RSpec.describe RelationshipsController, :type => :controller do
 		end
 	end
 
-	describe 'incorrect user access' do
-		before :each do
-			@wrong_user = create(:user)
-			sign_in(@wrong_user)
-		end
-		describe 'POST #create' do
-			it 'does not save the relationship to the database' do
-				expect{
-					post :create, relationship: attributes_for(:relationship, comedian_id: @comedian.id, user_id: @user.id)
-				}.not_to change(Relationship, :count)
-			end
-
-			it 'redirects to root' do
-				post :create, relationship: attributes_for(:relationship, comedian_id: @comedian.id, user_id: @user.id)
-				expect(response).to redirect_to root_url
-			end
-		end
-
-		describe 'DELETE #destroy' do
-			before :each do
-				@relationship = create(:relationship, user_id: @user.id, comedian_id: @comedian.id)
-			end
-			it 'does not delete the relationship' do
-				expect{
-					delete :destroy, id: @relationship
-				}.not_to change(Relationship, :count)
-			end
-			it 'redirects to @comedian' do
-				delete :destroy, id: @relationship
-				expect(response).to redirect_to root_url
-			end
-		end
-	end
 	describe 'guest access' do
 		describe 'POST #create' do
 			it 'requires login' do

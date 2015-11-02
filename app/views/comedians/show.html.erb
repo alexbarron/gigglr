@@ -1,5 +1,16 @@
 <h1>Comedians#show</h1>
-<p><%= @comedian.name %></p>
+<p><%= @comedian.name %> (<%= @comedian.users.count %> <%= 'Fan'.pluralize(@comedian.users.count) %>)</p>
+
+<% if user_signed_in? %>
+	<% if current_user.fan_of?(@comedian) %>
+		<%= render 'unfollow' %>
+	<% else %>
+		<%= render 'follow' %>
+	<% end %>
+<% else %>
+	<%= button_to 'Follow', new_user_session_path %>
+<% end %>
+
 <p><%= @comedian.description %></p>
 <% if user_signed_in? && current_user.admin? %>
 	<%= link_to 'Edit', edit_comedian_path(@comedian) %>
