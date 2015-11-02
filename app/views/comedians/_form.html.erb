@@ -1,5 +1,6 @@
 <%= simple_form_for @comedian do |f| %>
 	<%= f.input :name %>
 	<%= f.input :description %>
+	<%= f.file_field :picture %>
 	<%= f.submit "Submit" %>
 <% end %>

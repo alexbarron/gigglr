@@ -11,6 +11,10 @@
 	<%= button_to 'Follow', new_user_session_path %>
 <% end %>
 
+<%= image_tag @comedian.picture.url(:medium) %>
+
+
+
 <p><%= @comedian.description %></p>
 <% if user_signed_in? && current_user.admin? %>
 	<%= link_to 'Edit Comedian', edit_comedian_path(@comedian) %>
