@@ -17,4 +17,5 @@ class User < ActiveRecord::Base
   def fan_of?(comedian)
     comedians.include?(comedian)
   end
+
 end

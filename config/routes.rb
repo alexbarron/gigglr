@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   resources :comedians
   resources :venues
   resources :bookings, only: [:create, :destroy]
+  resources :relationships, only: [:create, :destroy]
 
 
   devise_for :users
