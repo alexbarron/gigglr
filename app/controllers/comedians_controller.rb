@@ -9,6 +9,7 @@ class ComediansController < ApplicationController
     else
       @comedians = Comedian.all
     end
+
   end
 
   def show

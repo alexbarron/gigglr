@@ -7,7 +7,7 @@ gem 'rails', '4.2.1'
 gem 'pg'
 
 gem 'devise'
-
+gem 'geocoder'
 gem 'simple_form', '~> 3.1.0'
 
 gem 'paperclip', '~> 4.3', '>= 4.3.1'
