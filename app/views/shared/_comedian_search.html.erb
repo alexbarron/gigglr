@@ -1,0 +1,12 @@
+<div class="col-lg-3">
+<%= form_tag comedians_path, :id => "comedianSearchForm", :class => "navbar-form navbar-left", :method => :get do %>
+    <div class="input-group">
+      <%= text_field_tag :search, params[:search], :class => "form-control", placeholder: "Search Comedians" %>
+      <span class="input-group-btn">
+        <%= button_tag(type: 'submit', class: "btn btn-primary") do %>
+ 			<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+		<% end %>
+      </span>
+    </div><!-- /input-group -->
+<% end %>
+  </div><!-- /.col-lg-6 -->

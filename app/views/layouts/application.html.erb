@@ -22,6 +22,7 @@
 
 			</div>
 			<div class="collapse navbar-collapse">
+				
 				<ul class="nav navbar-nav">
 
 					<li><%= link_to "Comedians", comedians_path %></li>
@@ -29,7 +30,7 @@
 					<li><%= link_to "Shows", shows_path %></li>
 
 				</ul>
-
+				<%= render 'shared/comedian_search' %>
 				<div class="nav navbar-nav navbar-right">
 					<% if user_signed_in? %>
 						<p class="navbar-text">Logged in as <strong><%= current_user.email %></strong>
