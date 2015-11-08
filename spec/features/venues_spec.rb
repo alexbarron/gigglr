@@ -12,7 +12,7 @@ describe 'Venues' do
 			click_link venue.name
 			expect(current_path).to eq venue_path(venue.id)
 			expect(page).to have_content venue.name
-			expect(page).to have_content venue.address.full_address
+			expect(page).to have_content venue.full_address
 			expect(page).to have_content "Louis CK In Santa Monica"
 		end
 	end
@@ -63,7 +63,7 @@ describe 'Venues' do
 			visit root_path
 			click_link 'Venues'
 			expect(page).to have_content venue.name
-			expect(page).to have_content venue.address.city
+			expect(page).to have_content venue.city
 			click_link venue.name
 			expect(current_path).to eq venue_path(venue)
 			click_link 'Edit Venue'

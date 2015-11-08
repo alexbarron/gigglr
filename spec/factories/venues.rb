@@ -3,15 +3,15 @@
 FactoryGirl.define do
   factory :venue do
     name "Alejandro's Comedy Shop"
-    association :address, strategy: :build
+    street_address "5900 Wilshire Blvd"
+    city "Los Angeles"
+    state "CA"
+    zip "90036"
 
 
     factory :invalid_venue do
     	name nil
     end
-
-    factory :no_address_venue do
-    	address nil
-    end
+    
   end
 end

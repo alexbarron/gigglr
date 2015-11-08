@@ -1,6 +1,6 @@
 <h1>Venues#show</h1>
 <%= @venue.name %><br />
-<%= @venue.address.full_address %>
+<%= @venue.full_address %>
 <% if user_signed_in? && current_user.admin? %>
 	<%= link_to 'Edit Venue', edit_venue_path(@venue) %>
 	<%= link_to 'Delete', venue_path(@venue), method: :delete, data: { confirm: "Are you sure?" } %>

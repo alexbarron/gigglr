@@ -3,7 +3,7 @@
 <%= @show.description %></br>
 <%= @show.showtime %></br>
 <%= @show.venue.name %></br>
-<%= @show.venue.address.full_address %></br>
+<%= @show.venue.full_address %></br>
 <% if @booked_comedians.empty? %>
 	<p>No comedians booked yet</p>
 <% elsif @booked_comedians.count >= 1 %>

@@ -13,7 +13,7 @@ describe 'Shows' do
 			expect(page).to have_content show.showtime
 			expect(page).to have_content show.description
 			expect(page).to have_content show.venue.name
-			expect(page).to have_content show.venue.address.full_address
+			expect(page).to have_content show.venue.full_address
 		end
 	end
 

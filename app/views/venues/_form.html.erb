@@ -1,10 +1,8 @@
 <%= simple_form_for @venue do |f| %>
 	<%= f.input :name %>
-	<%= f.simple_fields_for :address do |a| %>
-		<%= a.input :street_address %>
-		<%= a.input :city %>
-		<%= a.input :state %>
-		<%= a.input :zip %>
-	<% end %>
+	<%= f.input :street_address %>
+	<%= f.input :city %>		
+	<%= f.input :state %>
+	<%= f.input :zip %>
 	<%= f.submit 'Submit' %>
 <% end %>
