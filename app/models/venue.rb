@@ -5,6 +5,8 @@ class Venue < ActiveRecord::Base
 	validates :city, presence: true
 	validates :state, presence: true
 	validates :zip, presence: true
+	geocoded_by :full_address
+	after_validation :geocode
 
 	def full_address
 		"#{street_address}, #{city}, #{state}, #{zip}"
@@ -14,3 +16,4 @@ class Venue < ActiveRecord::Base
 		"#{city}, #{state}"
 	end
 end
+
