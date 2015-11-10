@@ -2,7 +2,29 @@ class ShowsController < ApplicationController
   before_action :set_show, only: [:show, :edit, :update, :destroy]
 
   def index
-    @shows = Show.all
+    @shows = []
+    @city = ""
+    if current_user
+      user_loc = Geocoder.search(current_user.location).first
+      @city = user_loc.city + ', ' + user_loc.state_code
+      venues = Venue.near(current_user.location, current_user.distance_pref)
+      venues.each do |venue|
+        Show.where("venue_id = ? AND showtime > ?", venue.id, Time.now).each do |show|
+          @shows.push(show)
+        end
+      end
+    else
+      ip = Rails.env.development? ? '76.219.223.26' : request.remote_ip
+      user_loc = Geocoder.search(ip).first
+      @city = user_loc.city + ', ' + user_loc.state_code
+      venues = Venue.near(ip, 30)
+      venues.each do |venue|
+        Show.where("venue_id = ? AND showtime > ?", venue.id, Time.now).each do |show|
+          @shows.push(show)
+        end
+      end
+    end
+    @shows.sort! { |a,b| a.showtime <=> b.showtime }
   end
 
   def show

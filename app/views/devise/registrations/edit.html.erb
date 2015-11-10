@@ -6,6 +6,7 @@
   <div class="form-inputs">
     <%= f.input :email, required: true, autofocus: true %>
     <%= f.input :location, required: true, hint: "Enter zip code or address for more accurate lists of comedy shows near you." %>
+    <%= f.input :distance_pref, required: true, hint: "How many miles will you travel for a show?" %>
     <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
       <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>
     <% end %>
