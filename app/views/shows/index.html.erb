@@ -1,10 +1,31 @@
-<h1>Upcoming Shows Near <%= @city %></h1>
-<ul>
-<% @shows.each do |show| %>
-	<li>
-	<%= link_to "#{show.name}: #{show.showtime} at #{show.venue.name}, #{show.venue.full_address}", show %></li>
-<% end %>
-</ul>
-<% if user_signed_in? && current_user.admin? %>
-	<%= link_to 'Add show', new_show_path %>
-<% end %>
+<div id="header_container">
+	<div class="row">
+    	<div class="col-md-8">
+    		<h1>Stand Up Shows Near <%= @city %></h1>      
+    	</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-8">
+		<% if @shows.empty? %>
+			<p>Sorry, no upcoming shows near you.</p>
+		<% else %>
+			<% @shows.in_groups_of(2) do |group| %>
+				<div class="row">
+					<% group.compact.each do |show| %>
+						<div class="col-md-6">
+							<h4><%= link_to show.showtime.strftime("%b %e") + " " + show.venue.name, show %></h4>
+							<%= link_to image_tag(show.comedians.first.picture.url(:medium), class: "comedianPicture"), show unless show.comedians.first.nil? %>
+							<ul class="homeComedians">
+        						<% show.comedians.each do |comedian| %>
+          							<li><%= link_to comedian.name, comedian %></li>
+        						<% end %>
+        					</ul>
+						</div>
+					<% end %>
+				</div>
+			<% end %>
+		<% end %>
+	</div>
+</div>

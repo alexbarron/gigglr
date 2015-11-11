@@ -17,7 +17,7 @@ class ShowsController < ApplicationController
       ip = Rails.env.development? ? '76.219.223.26' : request.remote_ip
       user_loc = Geocoder.search(ip).first
       @city = user_loc.city + ', ' + user_loc.state_code
-      venues = Venue.near(ip, 30)
+      venues = Venue.near(ip, 50)
       venues.each do |venue|
         Show.where("venue_id = ? AND showtime > ?", venue.id, Time.now).each do |show|
           @shows.push(show)
