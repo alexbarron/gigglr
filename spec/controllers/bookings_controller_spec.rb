@@ -27,8 +27,10 @@ RSpec.describe BookingsController, :type => :controller do
 
 	describe 'user access' do
 		before :each do
-			@user = create(:user)
-			sign_in(@user)
+			VCR.use_cassette("create user and sign in") do
+        		@user = create(:user)
+        		sign_in(@user)
+      		end
 		end
 		it_behaves_like 'public view of bookings'
 	end
@@ -37,8 +39,10 @@ RSpec.describe BookingsController, :type => :controller do
 		before :each do
 			@comedian = create(:comedian)
 			@show = create(:show)
-			@admin = create(:admin)
-		    sign_in(@admin)
+			VCR.use_cassette("create user and sign in") do
+        		@admin = create(:admin)
+        		sign_in(@admin)
+      		end
 		end
 		describe 'POST #create' do
 			it 'saves the new booking to the database' do

@@ -73,8 +73,10 @@ RSpec.describe ComediansController, :type => :controller do
 
   describe 'user access' do
     before :each do
-      @user = create(:user)
-      sign_in(@user)
+      VCR.use_cassette("create user and sign in") do
+        @user = create(:user)
+        sign_in(@user)
+      end
     end
 
     it_behaves_like 'public access to comedians'
@@ -141,8 +143,10 @@ RSpec.describe ComediansController, :type => :controller do
 
   describe 'admin access' do
     before :each do
-      @admin = create(:admin)
-      sign_in(@admin)
+      VCR.use_cassette("create user and sign in") do
+        @admin = create(:admin)
+        sign_in(@admin)
+      end
     end
     it_behaves_like 'public access to comedians'
 

@@ -7,9 +7,7 @@ class ShowsController < ApplicationController
     @shows = []
     @city = ""
     if current_user
-      user_loc = Geocoder.search(current_user.location).first
-      @city = user_loc.city + ', ' + user_loc.state_code
-      #@city = "Los Angeles, CA"
+      @city = current_user.city + ', ' + current_user.state
       venues = Venue.near(current_user.location, current_user.distance_pref)
       venues.each do |venue|
         Show.where("venue_id = ? AND showtime > ?", venue.id, Time.now).each do |show|

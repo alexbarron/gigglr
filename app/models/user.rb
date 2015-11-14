@@ -3,6 +3,7 @@ class User < ActiveRecord::Base
   has_many :comedians, through: :active_relationships
   geocoded_by :location
   after_validation :geocode, :if => :location_changed?
+  before_save :set_city_and_state
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -18,6 +19,12 @@ class User < ActiveRecord::Base
 
   def fan_of?(comedian)
     comedians.include?(comedian)
+  end
+
+  def set_city_and_state
+    user_loc = Geocoder.search(self.location).first
+    self.city = user_loc.city
+    self.state = user_loc.state_code
   end
 
 end

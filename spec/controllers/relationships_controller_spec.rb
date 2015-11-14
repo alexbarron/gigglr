@@ -3,11 +3,15 @@ require 'rails_helper'
 RSpec.describe RelationshipsController, :type => :controller do
 	before :each do
 		@comedian = create(:comedian)
-		@user = create (:user)
+		VCR.use_cassette("create user") do
+			@user = create (:user)
+		end
 	end
 	describe 'user access' do
 		before :each do
-			sign_in(@user)
+			VCR.use_cassette("user signs in") do
+				sign_in(@user)
+			end
 		end
 		describe 'POST #create' do
 			it 'saves the new relationship to the database' do
@@ -45,7 +49,7 @@ RSpec.describe RelationshipsController, :type => :controller do
 		end
 		describe 'DELETE #destroy' do
 			it 'requires login' do
-				@relationship = create(:relationship)
+				@relationship = create(:relationship, user_id: @user.id, comedian_id: @comedian.id)
 				delete :destroy, id: @relationship
 				expect(response).to require_login
 			end

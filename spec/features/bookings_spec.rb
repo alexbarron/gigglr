@@ -4,8 +4,8 @@ describe 'Bookings' do
 
 	context 'as an admin' do
 		before :each do
-			@admin = create(:admin)
-			VCR.use_cassette("user signs in") do
+			VCR.use_cassette("create user and sign in") do
+				@admin = create(:admin)
 				sign_in(@admin)
 			end
 			VCR.use_cassette("create_show") do
@@ -42,8 +42,8 @@ describe 'Bookings' do
 
 	context 'as a user' do
 		before :each do
-			@user = create(:user)
-			VCR.use_cassette("user signs in") do
+			VCR.use_cassette("create user and sign in") do
+				@user = create(:user)
 				sign_in(@user)
 			end
 			VCR.use_cassette("create_show") do
