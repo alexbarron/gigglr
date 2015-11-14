@@ -1,12 +1,10 @@
 require 'rails_helper'
 
 describe 'Venues' do
-	shared_examples 'public view of venues' do
+	shared_examples 'logged in view of venues' do
 		scenario "access venue page from venue index" do
 			venue = create(:venue, id: 1)
-			show = create(:show, name: "Louis CK In Santa Monica", 
-				venue_id: 1)
-			visit root_path
+			show = create(:show, name: "Louis CK In Santa Monica", venue_id: 1)
 			click_link 'Venues'
 			expect(page).to have_content venue.name
 			click_link venue.name
@@ -17,31 +15,16 @@ describe 'Venues' do
 		end
 	end
 
-	shared_examples 'non-admin view of venues' do
-		scenario 'cannot see add venue link' do
-			visit root_path
-			click_link 'Venues'
-			expect(page).not_to have_link 'Add venue'
-		end
-		scenario 'cannot see edit or delete venue link' do
-			venue = create(:venue)
-			visit root_path
-			click_link 'Venues'
-			click_link venue.name
-			expect(page).not_to have_link 'Edit Venue'
-			expect(page).not_to have_link 'Delete'
-		end
-	end
-
 	context 'as an admin' do
 		before :each do
 			@admin = create(:admin)
-			sign_in(@admin)
+			VCR.use_cassette("user signs in") do
+				sign_in(@admin)
+			end
 		end
-		it_behaves_like 'public view of venues'
+		it_behaves_like 'logged in view of venues'
 
 		scenario 'adds a venue' do
-			visit root_path
 			click_link 'Venues'
 			click_link 'Add venue'
 
@@ -50,7 +33,10 @@ describe 'Venues' do
 			fill_in 'City', with: 'Los Angeles'
 			fill_in 'State', with: 'CA'
 			fill_in 'Zip', with: '12345'
-			click_button 'Submit'
+			
+			VCR.use_cassette("add a venue form") do
+				click_button 'Submit'
+			end
 
 			expect(current_path).to eq venues_path
 			expect(page).to have_content 'Successfully created venue'
@@ -60,7 +46,6 @@ describe 'Venues' do
 
 		scenario 'edits a venue' do
 			venue = create(:venue)
-			visit root_path
 			click_link 'Venues'
 			expect(page).to have_content venue.name
 			expect(page).to have_content venue.city
@@ -77,7 +62,6 @@ describe 'Venues' do
 
 		scenario 'deletes a venue' do
 			venue = create(:venue)
-			visit root_path
 			click_link 'Venues'
 			click_link venue.name
 			expect(current_path).to eq venue_path(venue)
@@ -90,17 +74,62 @@ describe 'Venues' do
 	context 'as a user' do
 		before :each do
 			@user = create(:user)
-			sign_in(@user)
+			VCR.use_cassette("user signs in") do
+				sign_in(@user)
+			end
 		end
-		it_behaves_like 'public view of venues'
-		it_behaves_like 'non-admin view of venues'
+		it_behaves_like 'logged in view of venues'
 
+		scenario 'cannot see add venue link' do
+			click_link 'Venues'
+			expect(page).not_to have_link 'Add venue'
+		end
+
+		scenario 'cannot see edit or delete venue link' do
+			venue = create(:venue)
+			click_link 'Venues'
+			click_link venue.name
+			expect(page).not_to have_link 'Edit Venue'
+			expect(page).not_to have_link 'Delete'
+		end
 
 	end
 
 	context 'as a guest' do
-		it_behaves_like 'public view of venues'
-		it_behaves_like 'non-admin view of venues'
+
+		scenario "access venue page from venue index" do
+			venue = create(:venue, id: 1)
+			show = create(:show, name: "Louis CK In Santa Monica", venue_id: 1)
+			VCR.use_cassette("guest visits shows index") do
+				visit root_path
+			end
+			click_link 'Venues'
+			expect(page).to have_content venue.name
+			click_link venue.name
+			expect(current_path).to eq venue_path(venue.id)
+			expect(page).to have_content venue.name
+			expect(page).to have_content venue.full_address
+			expect(page).to have_content "Louis CK In Santa Monica"
+		end
+
+		scenario 'cannot see add venue link' do
+			VCR.use_cassette("guest visits shows index") do
+				visit root_path
+			end
+			click_link 'Venues'
+			expect(page).not_to have_link 'Add venue'
+		end
+
+		scenario 'cannot see edit or delete venue link' do
+			venue = create(:venue)
+			VCR.use_cassette("guest visits shows index") do
+				visit root_path
+			end
+			click_link 'Venues'
+			click_link venue.name
+			expect(page).not_to have_link 'Edit Venue'
+			expect(page).not_to have_link 'Delete'
+		end
 	end
 
 

@@ -1,18 +1,26 @@
 require 'rails_helper'
 
-RSpec.describe ShowsController, :type => :controller do
+RSpec.describe ShowsController, :type => :controller, focus: true do
 
-  shared_examples 'public access to shows' do
+  shared_examples 'logged in access to shows' do
     describe 'GET index' do
       it 'renders the :index template' do
-        get :index
+        VCR.use_cassette("user visits shows index") do
+          get :index
+        end
         expect(response).to render_template :index
       end
       it 'returns an array of shows' do
-        show1 = create(:show)
-        show2 = create(:show)
-        get :index
-        expect(assigns[:shows]).to match_array [show1, show2]
+        VCR.use_cassette("create_show") do
+          @show1 = create(:show)
+        end
+        VCR.use_cassette("create_show") do
+            @show2 = create(:show)
+        end
+        VCR.use_cassette("user visits shows index") do
+          get :index
+        end
+        expect(assigns[:shows]).to match_array [@show1, @show2]
       end
     end
 
@@ -31,15 +39,151 @@ RSpec.describe ShowsController, :type => :controller do
   end
 
   describe 'guest access' do
+    describe 'GET index' do
+      it 'renders the :index template' do
+        VCR.use_cassette("guest visits shows index") do
+          get :index
+        end
+        expect(response).to render_template :index
+      end
+      it 'returns an array of shows' do
+        VCR.use_cassette("create_show") do
+          @show1 = create(:show)
+        end
+        VCR.use_cassette("create_show") do
+            @show2 = create(:show)
+        end
+        VCR.use_cassette("guest visits shows index") do
+          get :index
+        end
+        expect(assigns[:shows]).to match_array [@show1, @show2]
+      end
+    end
 
+    describe 'GET show' do
+      it 'renders the :show template' do
+        show = create(:show)
+        get :show, id: show
+        expect(response).to render_template :show
+      end
+      it 'assigns the requested show to @show' do
+        @show = create(:show)
+        get :show, id: @show
+        expect(assigns(:show)).to eq @show
+      end
+    end
+
+    describe 'GET #new' do
+      it 'requires login' do
+        get :new
+        expect(response).to require_login
+      end
+    end
+
+    describe 'GET #edit' do
+      it 'requires login' do
+        show = create(:show)
+        get :edit, id: show
+        expect(response).to require_login
+      end
+    end
+
+    describe 'POST #create' do
+      it 'requires login' do
+        post :create, id: create(:show),
+          show: attributes_for(:show)
+        expect(response).to require_login
+      end
+    end
+
+    describe 'PUT #update' do
+      it 'requires login' do
+        put :update, id: create(:show),
+         show: attributes_for(:show)
+        expect(response).to require_login
+      end
+    end
+
+    describe 'DELETE #destroy' do
+      it 'requires login' do
+        delete :destroy, id: create(:show)
+        expect(response).to require_login
+      end
+    end
   end
 
   describe 'user access' do
+    before :each do
+      @user = create(:user)
+      sign_in(@user)
+    end
+    it_behaves_like 'logged in access to shows'
 
+    describe 'GET #new' do
+      it 'redirects to root' do
+        get :new
+        expect(response).to redirect_to root_path
+      end
+    end
+
+    describe 'GET #edit' do
+      it 'redirects to root' do
+        show = create(:show)
+        get :edit, id: show
+        expect(response).to redirect_to root_path
+      end
+    end
+
+    describe 'POST #create' do
+      it 'redirects to root' do
+        post :create, id: create(:show),
+          show: attributes_for(:show, venue_id: 1)
+        expect(response).to redirect_to root_path
+      end
+      it 'does not save show' do
+        expect{
+          post :create, show: attributes_for(:show)
+        }.not_to change(Show, :count)
+      end
+    end
+
+    describe 'PUT #update' do
+      it 'redirects to root' do
+        put :update, id: create(:show),
+         show: attributes_for(:show)
+        expect(response).to redirect_to root_path
+      end
+      it 'does not change show' do
+        show = create(:show)
+        put :update, id: show,
+          show: attributes_for(:show, name: "Fake Show")
+        show.reload
+        expect(show.name).not_to eq('Fake Show')
+      end
+    end
+
+    describe 'DELETE #destroy' do
+      before :each do
+        @show = create(:show)
+      end
+      it 'redirects to root' do
+        delete :destroy, id: @show
+        expect(response).to redirect_to root_path
+      end
+      it 'does not delete the show' do
+        expect{
+          delete :destroy, id: @show
+        }.not_to change(Show, :count)
+      end
+    end
   end
 
   describe 'admin access' do
-    it_behaves_like 'public access to shows'
+    before :each do
+      @admin = create(:admin)
+      sign_in(@admin)
+    end
+    it_behaves_like 'logged in access to shows'
 
     describe 'GET new' do
       it 'renders the :new template' do

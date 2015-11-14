@@ -1,0 +1,147 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://www.telize.com/geoip/76.219.223.26
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx/1.9.4
+      Date:
+      - Wed, 11 Nov 2015 20:32:40 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '361'
+      Connection:
+      - close
+      Cache-Control:
+      - no-cache
+      Access-Control-Allow-Origin:
+      - "*"
+    body:
+      encoding: UTF-8
+      string: |
+        {"offset":"-7","longitude":-118.3762,"city":"Los Angeles","timezone":"America\/Los_Angeles","latitude":34.0708,"area_code":"0","region":"California","dma_code":"0","organization":"AS7018 AT&T Services, Inc.","country":"United States","ip":"76.219.223.26","country_code3":"USA","postal_code":"90048","continent_code":"NA","country_code":"US","region_code":"CA"}
+    http_version: 
+  recorded_at: Wed, 11 Nov 2015 20:32:40 GMT
+- request:
+    method: get
+    uri: http://maps.googleapis.com/maps/api/geocode/json?address=90048&language=en&sensor=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Date:
+      - Wed, 11 Nov 2015 20:32:40 GMT
+      Expires:
+      - Thu, 12 Nov 2015 20:32:40 GMT
+      Cache-Control:
+      - public, max-age=86400
+      Access-Control-Allow-Origin:
+      - "*"
+      Server:
+      - mafe
+      Content-Length:
+      - '497'
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Frame-Options:
+      - SAMEORIGIN
+    body:
+      encoding: ASCII-8BIT
+      string: |
+        {
+           "results" : [
+              {
+                 "address_components" : [
+                    {
+                       "long_name" : "90048",
+                       "short_name" : "90048",
+                       "types" : [ "postal_code" ]
+                    },
+                    {
+                       "long_name" : "Los Angeles",
+                       "short_name" : "LA",
+                       "types" : [ "locality", "political" ]
+                    },
+                    {
+                       "long_name" : "Los Angeles County",
+                       "short_name" : "Los Angeles County",
+                       "types" : [ "administrative_area_level_2", "political" ]
+                    },
+                    {
+                       "long_name" : "California",
+                       "short_name" : "CA",
+                       "types" : [ "administrative_area_level_1", "political" ]
+                    },
+                    {
+                       "long_name" : "United States",
+                       "short_name" : "US",
+                       "types" : [ "country", "political" ]
+                    }
+                 ],
+                 "formatted_address" : "Los Angeles, CA 90048, USA",
+                 "geometry" : {
+                    "bounds" : {
+                       "northeast" : {
+                          "lat" : 34.083811,
+                          "lng" : -118.361375
+                       },
+                       "southwest" : {
+                          "lat" : 34.05576,
+                          "lng" : -118.3907139
+                       }
+                    },
+                    "location" : {
+                       "lat" : 34.0741548,
+                       "lng" : -118.3724915
+                    },
+                    "location_type" : "APPROXIMATE",
+                    "viewport" : {
+                       "northeast" : {
+                          "lat" : 34.083811,
+                          "lng" : -118.361375
+                       },
+                       "southwest" : {
+                          "lat" : 34.05576,
+                          "lng" : -118.3907139
+                       }
+                    }
+                 },
+                 "place_id" : "ChIJ1WgNtUu5woAR-sNTOQBvprc",
+                 "postcode_localities" : [ "Los Angeles", "West Hollywood" ],
+                 "types" : [ "postal_code" ]
+              }
+           ],
+           "status" : "OK"
+        }
+    http_version: 
+  recorded_at: Wed, 11 Nov 2015 20:32:40 GMT
+recorded_with: VCR 3.0.0

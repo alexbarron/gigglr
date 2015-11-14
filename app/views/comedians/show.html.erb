@@ -1,22 +1,40 @@
-<h1>Comedians#show</h1>
-<p><%= @comedian.name %> (<%= @comedian.users.count %> <%= 'Fan'.pluralize(@comedian.users.count) %>)</p>
+<div class="row">
+    <h1>
+    	<%= @comedian.name %> (<%= @comedian.users.count %> <%= 'Fan'.pluralize(@comedian.users.count) %>)
+    </h1>
+</div>
 
-<% if user_signed_in? %>
-	<% if current_user.fan_of?(@comedian) %>
-		<%= render 'unfollow' %>
-	<% else %>
-		<%= render 'follow' %>
-	<% end %>
-<% else %>
-	<%= button_to 'Follow', new_user_session_path %>
-<% end %>
+<div class="row">
+	<div class="col-md-4">
+    	<% if user_signed_in? %>
+			<% if current_user.fan_of?(@comedian) %>
+				<%= render 'unfollow' %>
+			<% else %>
+				<%= render 'follow' %>
+			<% end %>
+		<% else %>
+			<%= button_to 'Follow', new_user_session_path %>
+		<% end %>
+		<br />
+		<%= image_tag @comedian.picture.url(:medium) %>
+		<p><%= @comedian.description %></p>
+	</div>
 
-<%= image_tag @comedian.picture.url(:medium) %>
-
-
-
-<p><%= @comedian.description %></p>
+	<div class="col-md-8">
+		<br /><br />
+		<h4><%= @shows.count %> <%= 'Upcoming Show'.pluralize(@shows.count) %> Across the Country</h4>
+		<% if @shows.any? %>
+			<ul class="shows">
+			    <% @shows.each do |show| %>
+				    <li>
+				    	<%= link_to show.name, show %> <%= show.showtime.strftime("%b %e at %-I:%M %p") %> at <%= show.venue.name %>
+				    </li>
+			    <% end %>
+			</ul>
+		<% end %>
+	</div>
+</div>
 <% if user_signed_in? && current_user.admin? %>
-	<%= link_to 'Edit Comedian', edit_comedian_path(@comedian) %>
-	<%= link_to 'Delete', comedian_path(@comedian), method: :delete, data: { confirm: "Are you sure?" } %>
+	<%= link_to 'Delete', comedian_path(@comedian), method: :delete, data: { confirm: 'Are you sure?' } %>
+	<%= link_to 'Edit', edit_comedian_path(@comedian) %>
 <% end %>

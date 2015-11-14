@@ -5,7 +5,8 @@ FactoryGirl.define do
   	email { Faker::Internet.email }
   	password 'super_secure_password'
   	password_confirmation 'super_secure_password'
-
+  	location 'Beverly Hills, CA'
+  	
   	factory :admin do
   		admin true
   	end

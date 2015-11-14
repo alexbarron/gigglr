@@ -6,7 +6,9 @@ describe 'Relationships' do
 	end
 	context 'as a guest' do
 		scenario 'clicking follow redirects to login' do
-			visit root_path
+			VCR.use_cassette("guest visits shows index") do
+				visit root_path
+			end
 			click_link 'Comedians'
 			click_link 'Chris Rock'
 			click_button 'Follow'
@@ -18,10 +20,11 @@ describe 'Relationships' do
 	context 'as a user' do
 		before :each do
 			@user = create(:user)
-			sign_in(@user)
+			VCR.use_cassette("user signs in") do
+				sign_in(@user)
+			end
 		end
 		scenario 'follows a comedian from comedian show page' do
-			visit root_path
 			click_link 'Comedians'
 			click_link 'Chris Rock'
 			expect(page).to have_content '(0 Fans)'
@@ -35,7 +38,9 @@ describe 'Relationships' do
 
 		scenario 'unfollows a comedian from comedian show page' do
 			relationship = create(:relationship, comedian_id: @comedian.id, user_id: @user.id)
-			visit root_path
+			VCR.use_cassette("user visits shows index") do
+				visit root_path
+			end
 			click_link 'Comedians'
 			click_link 'Chris Rock'
 			expect(page).to have_content '(1 Fan)'

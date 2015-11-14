@@ -1,0 +1,259 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://maps.googleapis.com/maps/api/geocode/json?address=123%20Main%20Street,%20Los%20Angeles,%20CA,%2012345&language=en&sensor=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Date:
+      - Fri, 13 Nov 2015 06:25:07 GMT
+      Expires:
+      - Sat, 14 Nov 2015 06:25:07 GMT
+      Cache-Control:
+      - public, max-age=86400
+      Access-Control-Allow-Origin:
+      - "*"
+      Server:
+      - mafe
+      Content-Length:
+      - '953'
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Frame-Options:
+      - SAMEORIGIN
+    body:
+      encoding: ASCII-8BIT
+      string: |
+        {
+           "results" : [
+              {
+                 "address_components" : [
+                    {
+                       "long_name" : "123",
+                       "short_name" : "123",
+                       "types" : [ "street_number" ]
+                    },
+                    {
+                       "long_name" : "South Main Street",
+                       "short_name" : "S Main St",
+                       "types" : [ "route" ]
+                    },
+                    {
+                       "long_name" : "Downtown",
+                       "short_name" : "Downtown",
+                       "types" : [ "neighborhood", "political" ]
+                    },
+                    {
+                       "long_name" : "Los Angeles",
+                       "short_name" : "LA",
+                       "types" : [ "locality", "political" ]
+                    },
+                    {
+                       "long_name" : "Los Angeles County",
+                       "short_name" : "Los Angeles County",
+                       "types" : [ "administrative_area_level_2", "political" ]
+                    },
+                    {
+                       "long_name" : "California",
+                       "short_name" : "CA",
+                       "types" : [ "administrative_area_level_1", "political" ]
+                    },
+                    {
+                       "long_name" : "United States",
+                       "short_name" : "US",
+                       "types" : [ "country", "political" ]
+                    },
+                    {
+                       "long_name" : "90012",
+                       "short_name" : "90012",
+                       "types" : [ "postal_code" ]
+                    }
+                 ],
+                 "formatted_address" : "123 S Main St, Los Angeles, CA 90012, USA",
+                 "geometry" : {
+                    "location" : {
+                       "lat" : 34.0519079,
+                       "lng" : -118.243893
+                    },
+                    "location_type" : "ROOFTOP",
+                    "viewport" : {
+                       "northeast" : {
+                          "lat" : 34.05325688029149,
+                          "lng" : -118.2425440197085
+                       },
+                       "southwest" : {
+                          "lat" : 34.0505589197085,
+                          "lng" : -118.2452419802915
+                       }
+                    }
+                 },
+                 "partial_match" : true,
+                 "place_id" : "ChIJ3-cCKEnGwoARhS1-FUGpdNs",
+                 "types" : [ "street_address" ]
+              },
+              {
+                 "address_components" : [
+                    {
+                       "long_name" : "123",
+                       "short_name" : "123",
+                       "types" : [ "street_number" ]
+                    },
+                    {
+                       "long_name" : "Main Street",
+                       "short_name" : "Main St",
+                       "types" : [ "route" ]
+                    },
+                    {
+                       "long_name" : "Ocean Park",
+                       "short_name" : "Ocean Park",
+                       "types" : [ "neighborhood", "political" ]
+                    },
+                    {
+                       "long_name" : "Santa Monica",
+                       "short_name" : "Santa Monica",
+                       "types" : [ "locality", "political" ]
+                    },
+                    {
+                       "long_name" : "Los Angeles County",
+                       "short_name" : "Los Angeles County",
+                       "types" : [ "administrative_area_level_2", "political" ]
+                    },
+                    {
+                       "long_name" : "California",
+                       "short_name" : "CA",
+                       "types" : [ "administrative_area_level_1", "political" ]
+                    },
+                    {
+                       "long_name" : "United States",
+                       "short_name" : "US",
+                       "types" : [ "country", "political" ]
+                    },
+                    {
+                       "long_name" : "90405",
+                       "short_name" : "90405",
+                       "types" : [ "postal_code" ]
+                    },
+                    {
+                       "long_name" : "6411",
+                       "short_name" : "6411",
+                       "types" : [ "postal_code_suffix" ]
+                    }
+                 ],
+                 "formatted_address" : "123 Main St, Santa Monica, CA 90405, USA",
+                 "geometry" : {
+                    "bounds" : {
+                       "northeast" : {
+                          "lat" : 33.9977393,
+                          "lng" : -118.4792947
+                       },
+                       "southwest" : {
+                          "lat" : 33.9977294,
+                          "lng" : -118.4793091
+                       }
+                    },
+                    "location" : {
+                       "lat" : 33.9977294,
+                       "lng" : -118.4793091
+                    },
+                    "location_type" : "RANGE_INTERPOLATED",
+                    "viewport" : {
+                       "northeast" : {
+                          "lat" : 33.9990833302915,
+                          "lng" : -118.4779529197085
+                       },
+                       "southwest" : {
+                          "lat" : 33.9963853697085,
+                          "lng" : -118.4806508802915
+                       }
+                    }
+                 },
+                 "partial_match" : true,
+                 "place_id" : "EigxMjMgTWFpbiBTdCwgU2FudGEgTW9uaWNhLCBDQSA5MDQwNSwgVVNB",
+                 "types" : [ "street_address" ]
+              },
+              {
+                 "address_components" : [
+                    {
+                       "long_name" : "123",
+                       "short_name" : "123",
+                       "types" : [ "street_number" ]
+                    },
+                    {
+                       "long_name" : "Main Street",
+                       "short_name" : "Main St",
+                       "types" : [ "route" ]
+                    },
+                    {
+                       "long_name" : "El Segundo",
+                       "short_name" : "El Segundo",
+                       "types" : [ "locality", "political" ]
+                    },
+                    {
+                       "long_name" : "Los Angeles County",
+                       "short_name" : "Los Angeles County",
+                       "types" : [ "administrative_area_level_2", "political" ]
+                    },
+                    {
+                       "long_name" : "California",
+                       "short_name" : "CA",
+                       "types" : [ "administrative_area_level_1", "political" ]
+                    },
+                    {
+                       "long_name" : "United States",
+                       "short_name" : "US",
+                       "types" : [ "country", "political" ]
+                    },
+                    {
+                       "long_name" : "90245",
+                       "short_name" : "90245",
+                       "types" : [ "postal_code" ]
+                    },
+                    {
+                       "long_name" : "3802",
+                       "short_name" : "3802",
+                       "types" : [ "postal_code_suffix" ]
+                    }
+                 ],
+                 "formatted_address" : "123 Main St, El Segundo, CA 90245, USA",
+                 "geometry" : {
+                    "location" : {
+                       "lat" : 33.917275,
+                       "lng" : -118.4162274
+                    },
+                    "location_type" : "ROOFTOP",
+                    "viewport" : {
+                       "northeast" : {
+                          "lat" : 33.91862398029149,
+                          "lng" : -118.4148784197085
+                       },
+                       "southwest" : {
+                          "lat" : 33.9159260197085,
+                          "lng" : -118.4175763802915
+                       }
+                    }
+                 },
+                 "partial_match" : true,
+                 "place_id" : "ChIJtyXZ_0GxwoARIMaihCIADK8",
+                 "types" : [ "street_address" ]
+              }
+           ],
+           "status" : "OK"
+        }
+    http_version: 
+  recorded_at: Fri, 13 Nov 2015 06:25:07 GMT
+recorded_with: VCR 3.0.0

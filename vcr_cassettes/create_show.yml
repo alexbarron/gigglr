@@ -1,0 +1,113 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://maps.googleapis.com/maps/api/geocode/json?address=5900%20Wilshire%20Blvd,%20Los%20Angeles,%20CA,%2090036&language=en&sensor=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Date:
+      - Wed, 11 Nov 2015 19:58:10 GMT
+      Expires:
+      - Thu, 12 Nov 2015 19:58:10 GMT
+      Cache-Control:
+      - public, max-age=86400
+      Access-Control-Allow-Origin:
+      - "*"
+      Server:
+      - mafe
+      Content-Length:
+      - '548'
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Frame-Options:
+      - SAMEORIGIN
+    body:
+      encoding: ASCII-8BIT
+      string: |
+        {
+           "results" : [
+              {
+                 "address_components" : [
+                    {
+                       "long_name" : "5900",
+                       "short_name" : "5900",
+                       "types" : [ "street_number" ]
+                    },
+                    {
+                       "long_name" : "Wilshire Boulevard",
+                       "short_name" : "Wilshire Blvd",
+                       "types" : [ "route" ]
+                    },
+                    {
+                       "long_name" : "Mid-Wilshire",
+                       "short_name" : "Mid-Wilshire",
+                       "types" : [ "neighborhood", "political" ]
+                    },
+                    {
+                       "long_name" : "Los Angeles",
+                       "short_name" : "LA",
+                       "types" : [ "locality", "political" ]
+                    },
+                    {
+                       "long_name" : "Los Angeles County",
+                       "short_name" : "Los Angeles County",
+                       "types" : [ "administrative_area_level_2", "political" ]
+                    },
+                    {
+                       "long_name" : "California",
+                       "short_name" : "CA",
+                       "types" : [ "administrative_area_level_1", "political" ]
+                    },
+                    {
+                       "long_name" : "United States",
+                       "short_name" : "US",
+                       "types" : [ "country", "political" ]
+                    },
+                    {
+                       "long_name" : "90036",
+                       "short_name" : "90036",
+                       "types" : [ "postal_code" ]
+                    }
+                 ],
+                 "formatted_address" : "5900 Wilshire Blvd, Los Angeles, CA 90036, USA",
+                 "geometry" : {
+                    "location" : {
+                       "lat" : 34.0621005,
+                       "lng" : -118.358164
+                    },
+                    "location_type" : "ROOFTOP",
+                    "viewport" : {
+                       "northeast" : {
+                          "lat" : 34.0634494802915,
+                          "lng" : -118.3568150197085
+                       },
+                       "southwest" : {
+                          "lat" : 34.0607515197085,
+                          "lng" : -118.3595129802915
+                       }
+                    }
+                 },
+                 "place_id" : "ChIJ3wbN1zy5woARGovBlHgAS_s",
+                 "types" : [ "street_address" ]
+              }
+           ],
+           "status" : "OK"
+        }
+    http_version: 
+  recorded_at: Wed, 11 Nov 2015 19:58:10 GMT
+recorded_with: VCR 3.0.0

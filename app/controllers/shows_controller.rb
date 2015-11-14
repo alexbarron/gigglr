@@ -1,12 +1,15 @@
 class ShowsController < ApplicationController
   before_action :set_show, only: [:show, :edit, :update, :destroy]
-
+  before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
+  before_action :admin_user, only: [:new, :create, :edit, :update, :destroy]
+  
   def index
     @shows = []
     @city = ""
     if current_user
       user_loc = Geocoder.search(current_user.location).first
       @city = user_loc.city + ', ' + user_loc.state_code
+      #@city = "Los Angeles, CA"
       venues = Venue.near(current_user.location, current_user.distance_pref)
       venues.each do |venue|
         Show.where("venue_id = ? AND showtime > ?", venue.id, Time.now).each do |show|
@@ -14,10 +17,11 @@ class ShowsController < ApplicationController
         end
       end
     else
-      ip = Rails.env.development? ? '76.219.223.26' : request.remote_ip
+      ip = Rails.env.development? || Rails.env.test? ? '76.219.223.26' : request.remote_ip
       user_loc = Geocoder.search(ip).first
       @city = user_loc.city + ', ' + user_loc.state_code
-      venues = Venue.near(ip, 50)
+      #@city = "Los Angeles, CA"
+      venues = Venue.near(user_loc.postal_code, 50)
       venues.each do |venue|
         Show.where("venue_id = ? AND showtime > ?", venue.id, Time.now).each do |show|
           @shows.push(show)
@@ -63,7 +67,7 @@ class ShowsController < ApplicationController
 
   def destroy
     @show.destroy
-    redirect_to shows_url
+    redirect_to shows_url, notice: 'Successfully deleted show'
   end
 
   private

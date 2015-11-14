@@ -7,12 +7,12 @@ class ComediansController < ApplicationController
     if params[:search]
       @comedians = Comedian.search(params[:search])
     else
-      @comedians = Comedian.all
+      @comedians = Comedian.all.sort { |b,a| a.users.count <=> b.users.count }
     end
-
   end
 
   def show
+    @shows = @comedian.shows.where("showtime > ?", Time.now).sort { |a,b| a.showtime <=> b.showtime }
   end
 
   def new
