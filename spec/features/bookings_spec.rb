@@ -18,7 +18,7 @@ describe 'Bookings' do
 				visit root_path
 			end
 
-			click_link "#{@show.showtime.strftime('%m/%-d')} #{@show.venue.name}"
+			click_link @show.name
 
 			select @comedian.name, from: 'booking[comedian_id]'
 			click_button 'Add Comedian'
@@ -31,7 +31,7 @@ describe 'Bookings' do
 			VCR.use_cassette("user visits shows index") do
 				visit root_path
 			end
-			click_link "#{@show.showtime.strftime('%m/%-d')} #{@show.venue.name}"
+			click_link @show.name
 
 			click_button 'Remove Comedian'
 
@@ -56,7 +56,7 @@ describe 'Bookings' do
 			VCR.use_cassette("user visits shows index") do
 				visit root_path
 			end
-			click_link "#{@show.showtime.strftime('%m/%-d')} #{@show.venue.name}"
+			click_link @show.name
 			expect(page).not_to have_button 'Add Comedian'
 		end
 
@@ -65,7 +65,7 @@ describe 'Bookings' do
 			VCR.use_cassette("user visits shows index") do
 				visit root_path
 			end
-			click_link "#{@show.showtime.strftime('%m/%-d')} #{@show.venue.name}"
+			click_link @show.name
 			expect(page).not_to have_button 'Remove Comedian'
 		end
 	end
@@ -81,14 +81,14 @@ describe 'Bookings' do
 			VCR.use_cassette("guest visits shows index") do
 				visit root_path
 			end
-			click_link "#{@show.showtime.strftime('%m/%-d')} #{@show.venue.name}"
+			click_link @show.name
 			expect(page).not_to have_button 'Add Comedian'
 		end
 		scenario 'cannot see remove comedian button' do
 			VCR.use_cassette("guest visits shows index") do
 				visit root_path
 			end
-			click_link "#{@show.showtime.strftime('%m/%-d')} #{@show.venue.name}"
+			click_link @show.name
 			expect(page).not_to have_button 'Remove Comedian'
 		end
 	end

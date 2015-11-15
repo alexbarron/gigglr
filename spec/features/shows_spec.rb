@@ -9,7 +9,7 @@ describe 'Shows' do
 			VCR.use_cassette("user visits shows index") do
 				visit root_path
 			end
-			click_link "#{@show.showtime.strftime('%m/%-d')} #{@show.venue.name}"
+			click_link @show.name
 			expect(current_path).to eq show_path(@show.id)
 			expect(page).to have_content @show.name
 			expect(page).to have_content @show.showtime
@@ -61,7 +61,7 @@ describe 'Shows' do
       		VCR.use_cassette("user visits shows index") do
 				visit root_path
 			end
-			click_link "#{@show.showtime.strftime('%m/%-d')} #{@show.venue.name}"
+			click_link @show.name
 			expect(current_path).to eq show_path(@show)
 			click_link 'Edit Show'
 			fill_in 'Name', with: 'Jim Jefferies in SF'
@@ -86,7 +86,7 @@ describe 'Shows' do
       		VCR.use_cassette("user visits shows index") do
 				visit root_path
 			end
-			click_link "#{@show.showtime.strftime('%m/%-d')} #{@show.venue.name}"
+			click_link @show.name
 			expect(current_path).to eq show_path(@show)
 			VCR.use_cassette("delete a show") do
 				click_link 'Delete'
@@ -123,7 +123,7 @@ describe 'Shows' do
 				visit root_path
 			end
 			#click_link 'Shows'
-			click_link "#{@show.showtime.strftime('%m/%-d')} #{@show.venue.name}"
+			click_link @show.name
 			expect(page).not_to have_link 'Edit Show'
 			expect(page).not_to have_link 'Delete'
 		end
@@ -141,7 +141,7 @@ describe 'Shows' do
 			VCR.use_cassette("guest visits shows index") do
 				visit root_path
 			end
-			click_link "#{@show.showtime.strftime('%m/%-d')} #{@show.venue.name}"
+			click_link @show.name
 			expect(current_path).to eq show_path(@show.id)
 			expect(page).to have_content @show.name
 			expect(page).to have_content @show.showtime
@@ -164,7 +164,7 @@ describe 'Shows' do
 			VCR.use_cassette("guest visits shows index") do
 				visit root_path
 			end
-			click_link "#{@show.showtime.strftime('%m/%-d')} #{@show.venue.name}"
+			click_link @show.name
 			expect(page).not_to have_link 'Edit Show'
 			expect(page).not_to have_link 'Delete'
 		end

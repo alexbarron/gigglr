@@ -6,8 +6,12 @@
 	</div>
 </div>
 
+<% if user_signed_in? && current_user.admin? %>
+	<%= link_to 'Add show', new_show_path %>
+<% end %>
+
 <div class="row">
-	<div class="col-md-8">
+	<div class="col-md-12">
 		<% if @shows.empty? %>
 			<p>Sorry, no upcoming shows near you.</p>
 		<% else %>
@@ -15,13 +19,20 @@
 				<div class="row">
 					<% group.compact.each do |show| %>
 						<div class="col-md-6">
-							<%= link_to "#{show.showtime.strftime('%m/%-d')} #{show.venue.name}", show %>
-							<%= link_to image_tag(show.comedians.first.picture.url(:medium), class: "comedianPicture"), show unless show.comedians.first.nil? %>
-							<ul class="homeComedians">
-        						<% show.comedians.each do |comedian| %>
-          							<li><%= link_to comedian.name, comedian %></li>
-        						<% end %>
-        					</ul>
+							<%= link_to(show) do %>
+								<div class="box panel panel-default">
+									<div class="panel-body row">
+										<div class="col-md-4">
+	        								<h2><%= link_to show.name, show %></h2>
+	        						
+	        								<h3><%= link_to "#{show.showtime.strftime('%m/%-d')} #{show.venue.name}", show %></h3> 
+        								</div>
+        								<div class="col-md-8">
+        									<%= link_to image_tag(show.comedians.first.picture.url(:medium)), show unless show.comedians.first.nil? %>
+        								</div>
+									</div>
+								</div>
+							<% end %>
 						</div>
 					<% end %>
 				</div>
@@ -30,6 +41,3 @@
 	</div>
 </div>
 
-<% if user_signed_in? && current_user.admin? %>
-	<%= link_to 'Add show', new_show_path %>
-<% end %>
