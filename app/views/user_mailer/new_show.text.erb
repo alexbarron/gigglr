@@ -1,0 +1,11 @@
+New <%= @comedian.name %> Show Near You!
+
+Hi Comedy Fan,
+
+You said you liked <%= @comedian.name %>?
+
+Well, good news. 
+
+<%= @comedian.name %> has a new show near you on <%= @show.showtime.strftime("%b %e at %-I:%M %p") %> at <%= @show.venue.name %>.
+
+Follow this URL for show details: <%= show_url(@show) %>

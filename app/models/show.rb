@@ -17,4 +17,17 @@ class Show < ActiveRecord::Base
 	def booked_comedian?(comedian)
 		comedians.include?(comedian)
 	end
+
+	def notify_fans_of(comedian, show)
+		fans = Relationship.where("comedian_id = ?", comedian.id)
+		local_fans = []
+		fans.each do |fan|
+			if fan.user.distance_to(show.venue) < fan.user.distance_pref
+				local_fans.push(fan.user)
+			end
+		end
+		local_fans.each do |local_fan|
+			UserMailer.new_show(local_fan, comedian, show).deliver_now
+		end
+	end
 end

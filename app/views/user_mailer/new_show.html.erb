@@ -1,0 +1,19 @@
+<h1>New <%= @comedian.name %> Show Near You!</h1>
+
+<p>
+Hey Comedy Fan,
+</p>
+
+<p>
+You said you liked <%= @comedian.name %>?
+</p>
+
+<p>
+Well, good news. 
+</p>
+
+<p>
+<%= @comedian.name %> has a new show near you on <%= @show.showtime.strftime("%b %e at %-I:%M %p") %> at <%= @show.venue.name %>.
+</p>
+
+<h2><%= link_to "Click here for show details", @show %></h2>

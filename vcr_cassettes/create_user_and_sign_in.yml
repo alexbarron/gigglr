@@ -21,9 +21,9 @@ http_interactions:
       Content-Type:
       - application/json; charset=UTF-8
       Date:
-      - Sat, 14 Nov 2015 06:08:50 GMT
+      - Wed, 18 Nov 2015 02:34:25 GMT
       Expires:
-      - Sun, 15 Nov 2015 06:08:50 GMT
+      - Thu, 19 Nov 2015 02:34:25 GMT
       Cache-Control:
       - public, max-age=86400
       Access-Control-Allow-Origin:
@@ -99,7 +99,7 @@ http_interactions:
            "status" : "OK"
         }
     http_version: 
-  recorded_at: Sat, 14 Nov 2015 06:08:50 GMT
+  recorded_at: Wed, 18 Nov 2015 02:34:25 GMT
 - request:
     method: get
     uri: http://maps.googleapis.com/maps/api/geocode/json?address=Beverly%20Hills,%20CA&language=en&sensor=false
@@ -121,9 +121,9 @@ http_interactions:
       Content-Type:
       - application/json; charset=UTF-8
       Date:
-      - Sat, 14 Nov 2015 06:08:50 GMT
+      - Wed, 18 Nov 2015 02:34:25 GMT
       Expires:
-      - Sun, 15 Nov 2015 06:08:50 GMT
+      - Thu, 19 Nov 2015 02:34:25 GMT
       Cache-Control:
       - public, max-age=86400
       Access-Control-Allow-Origin:
@@ -199,10 +199,10 @@ http_interactions:
            "status" : "OK"
         }
     http_version: 
-  recorded_at: Sat, 14 Nov 2015 06:08:50 GMT
+  recorded_at: Wed, 18 Nov 2015 02:34:25 GMT
 - request:
     method: get
-    uri: http://www.telize.com/geoip/76.219.223.26
+    uri: http://freegeoip.net/json/76.219.223.26
     body:
       encoding: US-ASCII
       string: ''
@@ -218,26 +218,32 @@ http_interactions:
       code: 200
       message: OK
     headers:
-      Server:
-      - nginx/1.9.4
-      Date:
-      - Sat, 14 Nov 2015 06:08:51 GMT
-      Content-Type:
-      - application/json; charset=utf-8
-      Content-Length:
-      - '361'
-      Connection:
-      - close
-      Cache-Control:
-      - no-cache
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Allow-Methods:
+      - GET, HEAD, OPTIONS
       Access-Control-Allow-Origin:
       - "*"
+      Content-Type:
+      - application/json
+      X-Database-Date:
+      - Tue, 17 Nov 2015 02:28:46 GMT
+      X-Ratelimit-Limit:
+      - '10000'
+      X-Ratelimit-Remaining:
+      - '9996'
+      X-Ratelimit-Reset:
+      - '3049'
+      Date:
+      - Wed, 18 Nov 2015 02:34:25 GMT
+      Content-Length:
+      - '252'
     body:
       encoding: UTF-8
       string: |
-        {"offset":"-7","longitude":-118.3762,"city":"Los Angeles","timezone":"America\/Los_Angeles","latitude":34.0708,"area_code":"0","region":"California","dma_code":"0","organization":"AS7018 AT&T Services, Inc.","country":"United States","ip":"76.219.223.26","country_code3":"USA","postal_code":"90048","continent_code":"NA","country_code":"US","region_code":"CA"}
+        {"ip":"76.219.223.26","country_code":"US","country_name":"United States","region_code":"CA","region_name":"California","city":"Los Angeles","zip_code":"90048","time_zone":"America/Los_Angeles","latitude":34.0708,"longitude":-118.3762,"metro_code":803}
     http_version: 
-  recorded_at: Sat, 14 Nov 2015 06:08:51 GMT
+  recorded_at: Wed, 18 Nov 2015 02:34:25 GMT
 - request:
     method: get
     uri: http://maps.googleapis.com/maps/api/geocode/json?address=90048&language=en&sensor=false
@@ -259,9 +265,9 @@ http_interactions:
       Content-Type:
       - application/json; charset=UTF-8
       Date:
-      - Sat, 14 Nov 2015 06:08:51 GMT
+      - Wed, 18 Nov 2015 02:34:26 GMT
       Expires:
-      - Sun, 15 Nov 2015 06:08:51 GMT
+      - Thu, 19 Nov 2015 02:34:26 GMT
       Cache-Control:
       - public, max-age=86400
       Access-Control-Allow-Origin:
@@ -343,7 +349,7 @@ http_interactions:
            "status" : "OK"
         }
     http_version: 
-  recorded_at: Sat, 14 Nov 2015 06:08:52 GMT
+  recorded_at: Wed, 18 Nov 2015 02:34:25 GMT
 - request:
     method: get
     uri: http://maps.googleapis.com/maps/api/geocode/json?address=Beverly%20Hills,%20CA&language=en&sensor=false
@@ -365,9 +371,9 @@ http_interactions:
       Content-Type:
       - application/json; charset=UTF-8
       Date:
-      - Sat, 14 Nov 2015 06:08:52 GMT
+      - Wed, 18 Nov 2015 02:34:26 GMT
       Expires:
-      - Sun, 15 Nov 2015 06:08:52 GMT
+      - Thu, 19 Nov 2015 02:34:26 GMT
       Cache-Control:
       - public, max-age=86400
       Access-Control-Allow-Origin:
@@ -443,7 +449,7 @@ http_interactions:
            "status" : "OK"
         }
     http_version: 
-  recorded_at: Sat, 14 Nov 2015 06:08:52 GMT
+  recorded_at: Wed, 18 Nov 2015 02:34:26 GMT
 - request:
     method: get
     uri: http://maps.googleapis.com/maps/api/geocode/json?address=Beverly%20Hills,%20CA&language=en&sensor=false
@@ -465,9 +471,9 @@ http_interactions:
       Content-Type:
       - application/json; charset=UTF-8
       Date:
-      - Sat, 14 Nov 2015 06:08:52 GMT
+      - Wed, 18 Nov 2015 02:34:26 GMT
       Expires:
-      - Sun, 15 Nov 2015 06:08:52 GMT
+      - Thu, 19 Nov 2015 02:34:26 GMT
       Cache-Control:
       - public, max-age=86400
       Access-Control-Allow-Origin:
@@ -543,5 +549,5 @@ http_interactions:
            "status" : "OK"
         }
     http_version: 
-  recorded_at: Sat, 14 Nov 2015 06:08:52 GMT
+  recorded_at: Wed, 18 Nov 2015 02:34:26 GMT
 recorded_with: VCR 3.0.0
