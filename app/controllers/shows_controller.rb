@@ -15,7 +15,8 @@ class ShowsController < ApplicationController
         end
       end
     else
-      ip = Rails.env.development? || Rails.env.test? ? '76.219.223.26' : request.remote_ip
+      local_ip = ENV['IP_DEV_VAR']
+      ip = Rails.env.development? || Rails.env.test? ? local_ip : request.remote_ip
       user_loc = Geocoder.search(ip).first
       @city = user_loc.city + ', ' + user_loc.state_code
       #@city = "Los Angeles, CA"
