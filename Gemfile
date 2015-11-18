@@ -9,6 +9,7 @@ gem 'pg'
 gem 'devise'
 gem 'geocoder'
 gem 'simple_form', '~> 3.1.0'
+gem 'delayed_job_active_record'
 
 gem 'paperclip', '~> 4.3', '>= 4.3.1'
 
