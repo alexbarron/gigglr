@@ -1,20 +1,35 @@
 <h3>Most Popular Comedians</h3>
-<% @comedians.in_groups_of(3) do |group| %>
-	<div class="row">
-		<% group.compact.each do |comedian| %>
-			<div class="col-md-4 comedianBox">
-				<h4>
-					<%= link_to comedian.name, comedian %>
-					(<%= comedian.users.count %> <%= 'Fan'.pluralize(comedian.users.count) %>)
-				</h4>
-				<%= image_tag comedian.picture.url(:medium), height: '120px', class: "comedianPicture" %>
-				<ul class="comedianShows">
-					<% comedian.shows.where("showtime > ?", Time.now).each do |show| %>
-						<li><%= link_to show.showtime.strftime("%b %e") + ": " + show.venue.name, show %></li>
+
+<%= link_to 'New Comedian', new_comedian_path if user_signed_in? && current_user.admin? %>
+
+<div class="row">
+	<div class="col-md-12">
+			<% @comedians.in_groups_of(2) do |group| %>
+				<div class="row">
+					<% group.compact.each do |comedian| %>
+						<div class="col-md-6">
+							<%= link_to(comedian) do %>
+								<div class="box panel panel-default">
+									<div class="panel-body row">
+										<div class="col-md-4">
+	        								<h2>
+	        									<%= link_to comedian.name, comedian %><br />
+	        									(<%= comedian.users.count %> <%= 'Fan'.pluralize(comedian.users.count) %>)
+	        								</h2>
+	        								<h2>Upcoming Shows:</h2> 
+	        								<% comedian.shows.where("showtime > ?", Time.now).each do |show| %>
+	        									<p><%= link_to "#{show.showtime.strftime('%m/%-d')} #{show.venue.city_state}", show %></p>
+	        								<% end %>
+        								</div>
+        								<div class="col-md-8">
+        									<%= link_to image_tag(comedian.picture.url(:medium)), comedian %>
+        								</div>
+									</div>
+								</div>
+							<% end %>
+						</div>
 					<% end %>
-				</ul>
-			</div>
+				</div>
 		<% end %>
 	</div>
-<% end %>
-<%= link_to 'New Comedian', new_comedian_path if user_signed_in? && current_user.admin? %>
+</div>
