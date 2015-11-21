@@ -12,7 +12,7 @@ describe 'Shows' do
 			click_link @show.name
 			expect(current_path).to eq show_path(@show.id)
 			expect(page).to have_content @show.name
-			expect(page).to have_content @show.showtime
+			expect(page).to have_content @show.showtime.strftime('%l:%M %p %b %e, %Y')
 			expect(page).to have_content @show.description
 			expect(page).to have_content @show.venue.name
 			expect(page).to have_content @show.venue.full_address
@@ -76,7 +76,7 @@ describe 'Shows' do
 			expect(page).to have_content 'Successfully updated show'
 			expect(page).to have_content 'Jim Jefferies in SF'
 			expect(page).to have_content 'Australian comedian comes to San Francisco'
-			expect(page).to have_content '2015-12-29 20:00:00'
+			expect(page).to have_content '8:00 PM Dec 29, 2015'
 		end
 
 		scenario 'deletes a show' do
@@ -144,7 +144,7 @@ describe 'Shows' do
 			click_link @show.name
 			expect(current_path).to eq show_path(@show.id)
 			expect(page).to have_content @show.name
-			expect(page).to have_content @show.showtime
+			expect(page).to have_content @show.showtime.strftime('%l:%M %p %b %e, %Y')
 			expect(page).to have_content @show.description
 			expect(page).to have_content @show.venue.name
 			expect(page).to have_content @show.venue.full_address

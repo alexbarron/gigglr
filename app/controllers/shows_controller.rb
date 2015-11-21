@@ -32,11 +32,14 @@ class ShowsController < ApplicationController
   end
 
   def show
-    @booked_comedians = @show.comedians
+    @full_lineup = @show.comedians.sort { |b,a| a.users.count <=> b.users.count }
     @comedians = Comedian.all.sort { |a,b| a.name.downcase <=> b.name.downcase }
-    @booked_comedians.each do |x|
+    @full_lineup.each do |x|
       @comedians.delete(x)
     end
+    @headliner = @full_lineup.first
+    @openers = @full_lineup.clone
+    @openers.delete(@headliner)
   end
 
   def new

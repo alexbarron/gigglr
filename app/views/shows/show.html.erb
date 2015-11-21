@@ -1,16 +1,50 @@
-<h1>Shows#show</h1>
-<%= @show.name %></br>
-<%= @show.description %></br>
-<%= @show.showtime %></br>
-<%= @show.venue.name %></br>
-<%= @show.venue.full_address %></br>
-<% if @booked_comedians.empty? %>
+<div class="row">
+    <h1><%= @show.name %></h1>
+</div>
+
+<div class="row">
+	<% unless @headliner.nil? %>
+	<div class="col-md-4">
+		<%= image_tag @headliner.picture.url(:medium)%>
+	</div>
+	<div class="col-md-8">
+		<h3>Headliner: <%= link_to @headliner.name, @headliner %></h3>
+		<p><%= @headliner.description %></p>
+		<% end %>
+		<% if @openers.any? %>
+			<h4>Also Featuring:</h4>
+			<ul class="shows">
+			    <% @openers.each do |comedian| %>
+				    <li>
+				    	<%= link_to comedian.name, comedian %>
+				    </li>
+			    <% end %>
+			</ul>
+		<% end %>
+		<p>
+			<%= @show.showtime.strftime('%l:%M %p %b %e, %Y') %>
+		</p>
+		<h4>Show Info:</h4>
+		<p>
+			<%= @show.description %>
+		</p>
+		<p>
+			<%= @show.showtime.strftime('%l:%M %p %b %e, %Y') %>
+		</p>
+		<p>
+			<%= link_to @show.venue.name, @show.venue %><br /> 
+			<%= @show.venue.full_address %>
+		</p>
+	</div>
+</div>
+
+<% if @full_lineup.empty? %>
 	<p>No comedians booked yet</p>
-<% elsif @booked_comedians.count >= 1 %>
+<% elsif @full_lineup.count >= 1 %>
 	<ul>
-		<% @booked_comedians.each do |comedian| %>
+		<% @full_lineup.each do |comedian| %>
 			<li>
-				<%= link_to comedian.name, comedian %>
+				<%= link_to comedian.name, comedian %> (<%= comedian.users.count %> <%= 'Fan'.pluralize(comedian.users.count) %>)
 				<% if user_signed_in? && current_user.admin? %>
 					<%= form_for(@show.booked_comedians.find_by(comedian_id: comedian.id),
 					html: { method: :delete }) do |f| %>
