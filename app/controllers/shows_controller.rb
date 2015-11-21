@@ -6,14 +6,14 @@ class ShowsController < ApplicationController
   def index
     @shows = []
     @city = ""
-    if current_user
+
+    if params[:locsearch]
+      user_loc = Geocoder.search(params[:locsearch]).first
+      @city = user_loc.city + ', ' + user_loc.state_code
+      venues = Venue.near(params[:locsearch], 50)
+    elsif current_user
       @city = current_user.city + ', ' + current_user.state
       venues = Venue.near(current_user.location, current_user.distance_pref)
-      venues.each do |venue|
-        Show.where("venue_id = ? AND showtime > ?", venue.id, Time.now).each do |show|
-          @shows.push(show)
-        end
-      end
     else
       local_ip = ENV['IP_DEV_VAR']
       ip = Rails.env.development? || Rails.env.test? ? local_ip : request.remote_ip
@@ -22,13 +22,9 @@ class ShowsController < ApplicationController
       #@city = "Los Angeles, CA"
       #venues = Venue.near(@city, 50)
       venues = Venue.near(user_loc.postal_code, 50)
-      venues.each do |venue|
-        Show.where("venue_id = ? AND showtime > ?", venue.id, Time.now).each do |show|
-          @shows.push(show)
-        end
-      end
     end
-    @shows.sort! { |a,b| a.showtime <=> b.showtime }
+    venue_ids = venues.map(&:id)
+    @shows = Show.where('showtime > ? AND venue_id IN (?)', Time.now, venue_ids).order("showtime ASC")
   end
 
   def show

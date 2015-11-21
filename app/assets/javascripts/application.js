@@ -15,3 +15,11 @@
 //= require turbolinks
 //= require_tree .
 //= require bootstrap-sprockets
+
+$(".shows.index").ready(function(){
+	$("#changeCityBtn").click(function(){
+		$("#citySpan").hide();
+		$("#changeCityBtn").hide();
+		$("#changeCityForm").removeClass("hide");
+	})
+});
