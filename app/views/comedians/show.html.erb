@@ -13,7 +13,7 @@
 				<%= render 'follow' %>
 			<% end %>
 		<% else %>
-			<%= button_to 'Follow', new_user_session_path %>
+			<%= button_to 'Follow', new_user_session_path, method: :get, class: 'btn btn-primary' %>
 		<% end %>
 		<br />
 		<%= image_tag @comedian.picture.url(:medium) %>

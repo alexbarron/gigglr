@@ -1,4 +1,4 @@
 <%= simple_form_for current_user.active_relationships.find_by(comedian_id: @comedian.id), 
 	html: { method: :delete } do |f| %>
-	<%= f.submit 'Unfollow' %>
+	<%= f.submit 'Unfollow', class: 'btn btn-primary' %>
 <% end %>
