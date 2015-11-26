@@ -32,7 +32,7 @@
 													<% end %>
 	        									<% end %>
 	        								<% else %>
-	        									<%= button_to 'Follow', new_user_session_path, method: :get, class: 'btn btn-primary' %>
+	        									<%= button_to 'Follow', new_user_session_path, method: :get, class: 'btn btn-primary', params: { :com_id => comedian.id } %>
 	        								<% end %>
         								</div>
         								<div class="col-md-8">

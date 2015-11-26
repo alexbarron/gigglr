@@ -10,7 +10,9 @@
     <%= f.input :distance_pref, required: true, input_html: { value: "20" }, hint: "How many miles will you travel for a show?" %>
     <%= f.input :password, required: true, hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length) %>
     <%= f.input :password_confirmation, required: true %>
-    
+    <% if params[:com_id] %>
+      <%= f.hidden_field :com_id, value: params[:com_id] %>
+    <% end %>
   </div>
 
   <div class="form-actions">
