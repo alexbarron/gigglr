@@ -39,20 +39,44 @@ def make_comedian(comedian)
 end
 
 def make_venue(venue_id)
-  venue_response = HTTParty.get(base_url + "venues/" + venue_id + ".json?apikey=" + Rails.application.secrets.ticketmaster_key, verify: false)
-  #httparty to get venue info
-  #set address
-  #find_or_create venue with address, name, and ticketmaster id
-end
-
-def make_shows(comedian)
-  shows = 
-  shows.each do |show|
-    name = show["name"]
-    showtime = show["dates"]["start"]["localDate"] + " " + show["dates"]["start"]["localTime"]
+  if venue = Venue.find_by(ticketmaster_id: venue_id)
+    return venue
+  else
+    base_url = "https://app.ticketmaster.com/discovery/v2/"
+    venue_response = HTTParty.get(base_url + "venues/" + venue_id + ".json?apikey=" + Rails.application.secrets.ticketmaster_key, verify: false)
+    if venue_response["country"]["countryCode"] === "US"
+      venue_params = {
+        name: venue_response["name"],
+        ticketmaster_id: venue_response["id"],
+        street_address: venue_response["address"]["line1"],
+        city: venue_response["city"]["name"],
+        state: venue_response["state"]["stateCode"],
+        zip: venue_response["postalCode"],
+        latitude: venue_response["location"]["latitude"].to_f,
+        longitude: venue_response["location"]["longitude"].to_f
+      }
+      return Venue.create(venue_params)
+    else
+      return nil
+    end
   end
 end
 
+def make_shows(comedian)
+  base_url = "https://app.ticketmaster.com/discovery/v2/"
+  shows = HTTParty.get(base_url + "events.json?apikey=" + Rails.application.secrets.ticketmaster_key + "&keyword=" + comedian.name, :verify => false)
+  shows["_embedded"]["events"].each do |show|
+    if venue = make_venue(show["_embedded"]["venues"].first["id"])
+      name = show["name"]
+      showtime = show["dates"]["start"]["localDate"] + " " + show["dates"]["start"]["localTime"]
+      ticketmaster_id = show["id"]
+      Show.create(name: name, showtime: showtime, venue_id: venue.id, ticketmaster_id: ticketmaster_id)
+    end
+  end
+end
+
+make_shows(Comedian.first)
+
 comedians.each do |comedian|
-  make_comedian(comedian)
+  #make_comedian(comedian)
 end

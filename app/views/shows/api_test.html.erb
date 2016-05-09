@@ -1,9 +1,9 @@
 <p>
-<%= @comedian.name %>
-<%= @venue %>
+<%= @comedian.name %><br />
+<%= @venue["country"]["countryCode"] %>
 </p>
 
 <% @events["_embedded"]["events"].each do |event| %>
-<li><%= event["name"] %> - <%= event["dates"]["start"]["localDate"] %> <%= event["dates"]["start"]["localTime"] %> - <%= event["_embedded"]["venues"].first["name"] %> <%= event["_embedded"]["venues"].first["id"] %></li>
+<li><%= event["id"] %><%= event["name"] %> - <%= event["dates"]["start"]["localDate"] %> <%= event["dates"]["start"]["localTime"] %> - <%= event["_embedded"]["venues"].first["name"] %> <%= event["_embedded"]["venues"].first["id"] %></li>
 <% end %>
 
