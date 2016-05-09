@@ -21,9 +21,9 @@ http_interactions:
       Content-Type:
       - application/json; charset=UTF-8
       Date:
-      - Fri, 13 Nov 2015 06:25:07 GMT
+      - Mon, 09 May 2016 16:20:22 GMT
       Expires:
-      - Sat, 14 Nov 2015 06:25:07 GMT
+      - Tue, 10 May 2016 16:20:22 GMT
       Cache-Control:
       - public, max-age=86400
       Access-Control-Allow-Origin:
@@ -31,7 +31,7 @@ http_interactions:
       Server:
       - mafe
       Content-Length:
-      - '953'
+      - '1127'
       X-Xss-Protection:
       - 1; mode=block
       X-Frame-Options:
@@ -60,7 +60,7 @@ http_interactions:
                     },
                     {
                        "long_name" : "Los Angeles",
-                       "short_name" : "LA",
+                       "short_name" : "Los Angeles",
                        "types" : [ "locality", "political" ]
                     },
                     {
@@ -87,18 +87,18 @@ http_interactions:
                  "formatted_address" : "123 S Main St, Los Angeles, CA 90012, USA",
                  "geometry" : {
                     "location" : {
-                       "lat" : 34.0519079,
-                       "lng" : -118.243893
+                       "lat" : 34.0520344,
+                       "lng" : -118.2438762
                     },
                     "location_type" : "ROOFTOP",
                     "viewport" : {
                        "northeast" : {
-                          "lat" : 34.05325688029149,
-                          "lng" : -118.2425440197085
+                          "lat" : 34.0533833802915,
+                          "lng" : -118.2425272197085
                        },
                        "southwest" : {
-                          "lat" : 34.0505589197085,
-                          "lng" : -118.2452419802915
+                          "lat" : 34.0506854197085,
+                          "lng" : -118.2452251802915
                        }
                     }
                  },
@@ -250,10 +250,85 @@ http_interactions:
                  "partial_match" : true,
                  "place_id" : "ChIJtyXZ_0GxwoARIMaihCIADK8",
                  "types" : [ "street_address" ]
+              },
+              {
+                 "address_components" : [
+                    {
+                       "long_name" : "4th Street Bridge",
+                       "short_name" : "4th Street Bridge",
+                       "types" : [ "premise" ]
+                    },
+                    {
+                       "long_name" : "East 4th Street",
+                       "short_name" : "E 4th St",
+                       "types" : [ "route" ]
+                    },
+                    {
+                       "long_name" : "Downtown",
+                       "short_name" : "Downtown",
+                       "types" : [ "neighborhood", "political" ]
+                    },
+                    {
+                       "long_name" : "Los Angeles",
+                       "short_name" : "Los Angeles",
+                       "types" : [ "locality", "political" ]
+                    },
+                    {
+                       "long_name" : "Los Angeles County",
+                       "short_name" : "Los Angeles County",
+                       "types" : [ "administrative_area_level_2", "political" ]
+                    },
+                    {
+                       "long_name" : "California",
+                       "short_name" : "CA",
+                       "types" : [ "administrative_area_level_1", "political" ]
+                    },
+                    {
+                       "long_name" : "United States",
+                       "short_name" : "US",
+                       "types" : [ "country", "political" ]
+                    },
+                    {
+                       "long_name" : "90033",
+                       "short_name" : "90033",
+                       "types" : [ "postal_code" ]
+                    }
+                 ],
+                 "formatted_address" : "4th Street Bridge, E 4th St, Los Angeles, CA 90033, USA",
+                 "geometry" : {
+                    "bounds" : {
+                       "northeast" : {
+                          "lat" : 34.041695,
+                          "lng" : -118.2275788
+                       },
+                       "southwest" : {
+                          "lat" : 34.0413673,
+                          "lng" : -118.2316501
+                       }
+                    },
+                    "location" : {
+                       "lat" : 34.0415312,
+                       "lng" : -118.2296145
+                    },
+                    "location_type" : "ROOFTOP",
+                    "viewport" : {
+                       "northeast" : {
+                          "lat" : 34.0428801302915,
+                          "lng" : -118.2275788
+                       },
+                       "southwest" : {
+                          "lat" : 34.0401821697085,
+                          "lng" : -118.2316501
+                       }
+                    }
+                 },
+                 "partial_match" : true,
+                 "place_id" : "ChIJV8zC5BfGwoARf1FHPB_POKo",
+                 "types" : [ "premise" ]
               }
            ],
            "status" : "OK"
         }
     http_version: 
-  recorded_at: Fri, 13 Nov 2015 06:25:07 GMT
+  recorded_at: Mon, 09 May 2016 16:20:22 GMT
 recorded_with: VCR 3.0.0

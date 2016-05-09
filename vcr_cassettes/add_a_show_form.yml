@@ -21,9 +21,9 @@ http_interactions:
       Content-Type:
       - application/json; charset=UTF-8
       Date:
-      - Fri, 13 Nov 2015 06:15:14 GMT
+      - Mon, 09 May 2016 16:20:19 GMT
       Expires:
-      - Sat, 14 Nov 2015 06:15:14 GMT
+      - Tue, 10 May 2016 16:20:19 GMT
       Cache-Control:
       - public, max-age=86400
       Access-Control-Allow-Origin:
@@ -99,105 +99,5 @@ http_interactions:
            "status" : "OK"
         }
     http_version: 
-  recorded_at: Fri, 13 Nov 2015 06:15:14 GMT
-- request:
-    method: get
-    uri: http://maps.googleapis.com/maps/api/geocode/json?address=Beverly%20Hills,%20CA&language=en&sensor=false
-    body:
-      encoding: US-ASCII
-      string: ''
-    headers:
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept:
-      - "*/*"
-      User-Agent:
-      - Ruby
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Content-Type:
-      - application/json; charset=UTF-8
-      Date:
-      - Fri, 13 Nov 2015 06:15:15 GMT
-      Expires:
-      - Sat, 14 Nov 2015 06:15:15 GMT
-      Cache-Control:
-      - public, max-age=86400
-      Access-Control-Allow-Origin:
-      - "*"
-      Server:
-      - mafe
-      Content-Length:
-      - '458'
-      X-Xss-Protection:
-      - 1; mode=block
-      X-Frame-Options:
-      - SAMEORIGIN
-    body:
-      encoding: ASCII-8BIT
-      string: |
-        {
-           "results" : [
-              {
-                 "address_components" : [
-                    {
-                       "long_name" : "Beverly Hills",
-                       "short_name" : "Beverly Hills",
-                       "types" : [ "locality", "political" ]
-                    },
-                    {
-                       "long_name" : "Los Angeles County",
-                       "short_name" : "Los Angeles County",
-                       "types" : [ "administrative_area_level_2", "political" ]
-                    },
-                    {
-                       "long_name" : "California",
-                       "short_name" : "CA",
-                       "types" : [ "administrative_area_level_1", "political" ]
-                    },
-                    {
-                       "long_name" : "United States",
-                       "short_name" : "US",
-                       "types" : [ "country", "political" ]
-                    }
-                 ],
-                 "formatted_address" : "Beverly Hills, CA, USA",
-                 "geometry" : {
-                    "bounds" : {
-                       "northeast" : {
-                          "lat" : 34.112432,
-                          "lng" : -118.3720269
-                       },
-                       "southwest" : {
-                          "lat" : 34.0526658,
-                          "lng" : -118.4270409
-                       }
-                    },
-                    "location" : {
-                       "lat" : 34.0736204,
-                       "lng" : -118.4003563
-                    },
-                    "location_type" : "APPROXIMATE",
-                    "viewport" : {
-                       "northeast" : {
-                          "lat" : 34.112432,
-                          "lng" : -118.3720269
-                       },
-                       "southwest" : {
-                          "lat" : 34.0526658,
-                          "lng" : -118.4270409
-                       }
-                    }
-                 },
-                 "place_id" : "ChIJq0fR1gS8woAR0R4I_XnDx9Y",
-                 "types" : [ "locality", "political" ]
-              }
-           ],
-           "status" : "OK"
-        }
-    http_version: 
-  recorded_at: Fri, 13 Nov 2015 06:15:15 GMT
+  recorded_at: Mon, 09 May 2016 16:20:20 GMT
 recorded_with: VCR 3.0.0

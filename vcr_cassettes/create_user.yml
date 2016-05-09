@@ -21,9 +21,9 @@ http_interactions:
       Content-Type:
       - application/json; charset=UTF-8
       Date:
-      - Sat, 14 Nov 2015 06:23:05 GMT
+      - Mon, 09 May 2016 16:13:57 GMT
       Expires:
-      - Sun, 15 Nov 2015 06:23:05 GMT
+      - Tue, 10 May 2016 16:13:57 GMT
       Cache-Control:
       - public, max-age=86400
       Access-Control-Allow-Origin:
@@ -99,7 +99,7 @@ http_interactions:
            "status" : "OK"
         }
     http_version: 
-  recorded_at: Sat, 14 Nov 2015 06:23:06 GMT
+  recorded_at: Mon, 09 May 2016 16:13:57 GMT
 - request:
     method: get
     uri: http://maps.googleapis.com/maps/api/geocode/json?address=Beverly%20Hills,%20CA&language=en&sensor=false
@@ -121,9 +121,9 @@ http_interactions:
       Content-Type:
       - application/json; charset=UTF-8
       Date:
-      - Sat, 14 Nov 2015 06:23:06 GMT
+      - Mon, 09 May 2016 16:13:58 GMT
       Expires:
-      - Sun, 15 Nov 2015 06:23:06 GMT
+      - Tue, 10 May 2016 16:13:58 GMT
       Cache-Control:
       - public, max-age=86400
       Access-Control-Allow-Origin:
@@ -199,5 +199,5 @@ http_interactions:
            "status" : "OK"
         }
     http_version: 
-  recorded_at: Sat, 14 Nov 2015 06:23:06 GMT
+  recorded_at: Mon, 09 May 2016 16:13:58 GMT
 recorded_with: VCR 3.0.0

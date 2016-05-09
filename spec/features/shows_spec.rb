@@ -39,9 +39,9 @@ describe 'Shows' do
 
 			fill_in 'Name', with: 'Bill Burr in Los Angeles'
 			fill_in 'Description', with: 'A great night of laughs with Bill Burr'
-			select '2015', from: 'show[showtime(1i)]'
-			select 'December', from: 'show[showtime(2i)]'
-			select '10', from: 'show[showtime(3i)]'
+			select '2016', from: 'show[showtime(1i)]'
+			select 'May', from: 'show[showtime(2i)]'
+			select '29', from: 'show[showtime(3i)]'
 			select '20', from: 'show[showtime(4i)]'
 			select '00', from: 'show[showtime(5i)]'
 			select "Alejandro's Comedy Shop", from: 'show[venue_id]'
@@ -51,7 +51,7 @@ describe 'Shows' do
 			end
 			expect(current_path).to eq shows_path
 			expect(page).to have_content 'Successfully created show'
-			expect(page).to have_content "12/10 Alejandro's Comedy Shop"
+			expect(page).to have_content "5/29 Alejandro's Comedy Shop"
 		end
 
 		scenario 'edits a show' do
@@ -66,9 +66,9 @@ describe 'Shows' do
 			click_link 'Edit Show'
 			fill_in 'Name', with: 'Jim Jefferies in SF'
 			fill_in 'Description', with: 'Australian comedian comes to San Francisco'
-			select '2015', from: 'show[showtime(1i)]'
-			select 'December', from: 'show[showtime(2i)]'
-			select '29', from: 'show[showtime(3i)]'
+			select '2016', from: 'show[showtime(1i)]'
+			select 'May', from: 'show[showtime(2i)]'
+			select '30', from: 'show[showtime(3i)]'
 			select '20', from: 'show[showtime(4i)]'
 			select '00', from: 'show[showtime(5i)]'
 			click_button 'Submit'
@@ -76,7 +76,7 @@ describe 'Shows' do
 			expect(page).to have_content 'Successfully updated show'
 			expect(page).to have_content 'Jim Jefferies in SF'
 			expect(page).to have_content 'Australian comedian comes to San Francisco'
-			expect(page).to have_content '8:00 PM Dec 29, 2015'
+			expect(page).to have_content '8:00 PM May 30, 2016'
 		end
 
 		scenario 'deletes a show' do
@@ -118,11 +118,9 @@ describe 'Shows' do
 			VCR.use_cassette("create_show") do
         		@show = create(:show)
       		end
-			#show = create(:show)
 			VCR.use_cassette("user visits shows index") do
 				visit root_path
 			end
-			#click_link 'Shows'
 			click_link @show.name
 			expect(page).not_to have_link 'Edit Show'
 			expect(page).not_to have_link 'Delete'

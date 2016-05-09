@@ -15,7 +15,7 @@ class ShowsController < ApplicationController
       @city = current_user.city + ', ' + current_user.state
       venues = Venue.near(current_user.location, current_user.distance_pref)
     else
-      local_ip = ENV['IP_DEV_VAR']
+      local_ip = '167.187.101.240'
       ip = Rails.env.development? || Rails.env.test? ? local_ip : request.remote_ip
       user_loc = Geocoder.search(ip).first
       @city = user_loc.city + ', ' + user_loc.state_code
