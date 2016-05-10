@@ -23,9 +23,9 @@ class Comedian < ActiveRecord::Base
 	  else
 	  	name = comedian_response["name"]
 	  	id = comedian_response["id"]
-	  	image = comedian_response["images"][4]["url"]
+	  	image = comedian_response["images"].find {|image| image["fallback"] == false }
 		  @comedian = Comedian.create(name: name, ticketmaster_id: id)
-		  @comedian.picture = URI.parse(image)
+		  @comedian.picture = URI.parse(image["url"])
 		  @comedian.save
 	    @comedian.add_shows
 		  return @comedian

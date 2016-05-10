@@ -1,5 +1,5 @@
 class ComediansController < ApplicationController
-  before_action :set_comedian, only: [:show, :edit, :update, :destroy, :update_ticketmaster_shows, :add_ticketmaster_comedian, :update_ticketmaster_shows]
+  before_action :set_comedian, only: [:show, :edit, :update, :destroy, :update_ticketmaster_shows]
   before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy, :add_ticketmaster_comedian, :update_ticketmaster_shows]
   before_action :admin_user, only: [:new, :create, :edit, :update, :destroy, :add_ticketmaster_comedian, :update_ticketmaster_shows]
   

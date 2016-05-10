@@ -15,8 +15,8 @@
     </tr>
   <% @results.each do |result| %>
     <tr>
-      <% image = result["images"].find {|image| image["fallback"] == false } %>
-      <td><%= image_tag(image["url"], height: "150") %></td>
+      <% image = result["images"].find {|image| image["fallback"] == false }["url"] %>
+      <td><%= image_tag(image, height: "150") %></td>
       <td><%= result["name"] %></td>
       <td><%= result["classifications"][0]["genre"]["name"] %></td>
       <td><%= result["id"] %></td>
