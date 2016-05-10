@@ -1,6 +1,7 @@
 <h3>Most Popular Comedians</h3>
 
-<%= link_to 'New Comedian', new_comedian_path if user_signed_in? && current_user.admin? %>
+<%= link_to 'New Comedian', new_comedian_path if user_signed_in? && current_user.admin? %><br />
+<%= link_to 'Search Ticketmaster Comedians', comedians_ticketmaster_search_path if user_signed_in? && current_user.admin? %>
 
 <div class="row">
 	<div class="col-md-12">

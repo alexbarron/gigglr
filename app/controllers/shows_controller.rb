@@ -69,16 +69,6 @@ class ShowsController < ApplicationController
     redirect_to shows_url, notice: 'Successfully deleted show'
   end
 
-  def api_test
-    base_url = "https://app.ticketmaster.com/discovery/v2/"
-
-    @comedian = Comedian.first
-
-    @events = HTTParty.get(base_url + "events.json?apikey=" + Rails.application.secrets.ticketmaster_key + "&keyword=" + @comedian.name, :verify => false)
-
-    @venue = HTTParty.get(base_url + "venues/KovZpZAktvdA.json?apikey=" + Rails.application.secrets.ticketmaster_key, verify: false)
-  end
-
   private
 
   def set_show

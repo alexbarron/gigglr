@@ -1,7 +1,7 @@
 class ComediansController < ApplicationController
   before_action :set_comedian, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
-  before_action :admin_user, only: [:new, :create, :edit, :update, :destroy]
+  before_action :admin_user, only: [:new, :create, :edit, :update, :destroy, :ticketmaster_comedian]
   
   def index
     if params[:search]
@@ -26,6 +26,19 @@ class ComediansController < ApplicationController
     else
       render :new
     end
+  end
+
+  def ticketmaster_search
+    if params[:name]
+      @results = Comedian.search_ticketmaster(params[:name])
+    else
+      @results = []
+    end
+  end
+
+  def add_ticketmaster_comedian
+    @comedian = Comedian.add_ticketmaster_comedian(params[:ticketmaster_id])
+    redirect_to @comedian
   end
 
   def edit

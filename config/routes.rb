@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  
+  get '/comedians/ticketmaster_search' => 'comedians#ticketmaster_search'
+  get '/add_comedian' => 'comedians#add_ticketmaster_comedian'
 
   resources :shows
   resources :comedians
@@ -8,7 +11,7 @@ Rails.application.routes.draw do
 
   devise_for :users, :controllers => { registrations: 'registrations' }
 
-  get '/api_test' => 'shows#api_test'
+
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

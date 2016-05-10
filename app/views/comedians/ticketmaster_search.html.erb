@@ -1,0 +1,27 @@
+<h2>Search Ticketmaster for Comedians</h2>
+<%= form_tag comedians_ticketmaster_search_path, method: :get do %>
+  <p>Name: <%= text_field_tag :name %></p>
+  <%= submit_tag "Submit", class: 'btn btn-primary' %>
+<% end %>
+
+<% if !@results.empty? %>
+  <table border="1">
+    <tr>
+      <th></th>
+      <th>Attraction Name</th>
+      <th>Genre</th>
+      <th>Attraction ID</th>
+      <th></th>
+    </tr>
+  <% @results.each do |result| %>
+    <tr>
+      <% image = result["images"].find {|image| image["fallback"] == false } %>
+      <td><%= image_tag(image["url"], height: "150") %></td>
+      <td><%= result["name"] %></td>
+      <td><%= result["classifications"][0]["genre"]["name"] %></td>
+      <td><%= result["id"] %></td>
+      <th><%= link_to "Add this comedian", add_comedian_path(ticketmaster_id: result["id"]), class: 'btn btn-success' %></th>
+    </tr>
+  <% end %>
+  </table>
+<% end %>
