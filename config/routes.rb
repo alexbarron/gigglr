@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   
   get '/comedians/ticketmaster_search' => 'comedians#ticketmaster_search'
   get '/add_comedian' => 'comedians#add_ticketmaster_comedian'
+  get '/update_ticketmaster_shows' => 'comedians#update_ticketmaster_shows'
 
   resources :shows
   resources :comedians

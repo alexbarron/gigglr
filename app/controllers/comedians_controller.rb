@@ -1,7 +1,7 @@
 class ComediansController < ApplicationController
-  before_action :set_comedian, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
-  before_action :admin_user, only: [:new, :create, :edit, :update, :destroy, :ticketmaster_comedian]
+  before_action :set_comedian, only: [:show, :edit, :update, :destroy, :update_ticketmaster_shows, :add_ticketmaster_comedian, :update_ticketmaster_shows]
+  before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy, :add_ticketmaster_comedian, :update_ticketmaster_shows]
+  before_action :admin_user, only: [:new, :create, :edit, :update, :destroy, :add_ticketmaster_comedian, :update_ticketmaster_shows]
   
   def index
     if params[:search]
@@ -28,19 +28,6 @@ class ComediansController < ApplicationController
     end
   end
 
-  def ticketmaster_search
-    if params[:name]
-      @results = Comedian.search_ticketmaster(params[:name])
-    else
-      @results = []
-    end
-  end
-
-  def add_ticketmaster_comedian
-    @comedian = Comedian.add_ticketmaster_comedian(params[:ticketmaster_id])
-    redirect_to @comedian
-  end
-
   def edit
   end
 
@@ -55,6 +42,24 @@ class ComediansController < ApplicationController
   def destroy
     @comedian.destroy
     redirect_to comedians_url, notice: 'Comedian deleted successfully'
+  end
+
+  def ticketmaster_search
+    if params[:name]
+      @results = Comedian.search_ticketmaster(params[:name])
+    else
+      @results = []
+    end
+  end
+
+  def add_ticketmaster_comedian
+    @comedian = Comedian.add_ticketmaster_comedian(params[:ticketmaster_id])
+    redirect_to @comedian
+  end
+
+  def update_ticketmaster_shows
+    @comedian.add_shows
+    redirect_to @comedian
   end
 
   private

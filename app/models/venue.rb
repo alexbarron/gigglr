@@ -21,5 +21,27 @@ class Venue < ActiveRecord::Base
 			return true
 		end
 	end
-end
 
+	def self.add_ticketmaster_venue(id)
+	  if @venue = Venue.find_by(ticketmaster_id: id)
+	    return @venue
+	  else
+	    base_url = "https://app.ticketmaster.com/discovery/v2/"
+	    venue_response = HTTParty.get(base_url + "venues/" + id + ".json?apikey=" + Rails.application.secrets.ticketmaster_key, verify: false)
+	    if venue_response["country"]["countryCode"] === "US"
+	      venue_params = {
+	        name: venue_response["name"],
+	        ticketmaster_id: venue_response["id"],
+	        street_address: venue_response["address"]["line1"],
+	        city: venue_response["city"]["name"],
+	        state: venue_response["state"]["stateCode"],
+	        zip: venue_response["postalCode"]
+	      }
+	      @venue = Venue.create(venue_params)
+	      return @venue
+	    else
+	      return nil
+	    end
+	  end
+	end
+end

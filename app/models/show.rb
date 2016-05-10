@@ -30,4 +30,28 @@ class Show < ActiveRecord::Base
 			UserMailer.new_show(local_fan, comedian, show).deliver_now
 		end
 	end
+
+	def self.add_ticketmaster_show(show, comedian)
+    if existing_show = Show.find_by(ticketmaster_id: show["id"])
+      existing_show.book_comedian(comedian)
+    else
+      if !show["name"].downcase.include?("parking") && venue = Venue.add_ticketmaster_venue(show["_embedded"]["venues"].first["id"])
+        name = show["name"]
+        showtime = show["dates"]["start"]["localDate"] + " " + show["dates"]["start"]["localTime"]
+        ticketmaster_id = show["id"]
+        show = Show.create(name: name, showtime: showtime, venue_id: venue.id, ticketmaster_id: ticketmaster_id)
+        show.book_comedian(comedian)
+      end
+    end
+	end
+
+	def self.bulk_ticketmaster_adder(comedian)
+	  base_url = "https://app.ticketmaster.com/discovery/v2/"
+	  events_response = HTTParty.get(base_url + "events.json?apikey=" + Rails.application.secrets.ticketmaster_key + "&attractionId=" + comedian.ticketmaster_id, :verify => false)
+	  if !!events_response && !!events_response["_embedded"]
+	    events_response["_embedded"]["events"].each do |show|
+	    	Show.add_ticketmaster_show(show, comedian)
+	    end
+	  end
+	end
 end

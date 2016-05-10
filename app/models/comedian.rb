@@ -18,20 +18,27 @@ class Comedian < ActiveRecord::Base
 	def self.add_ticketmaster_comedian(id)
 	  base_url = "https://app.ticketmaster.com/discovery/v2/"
 	  comedian_response = HTTParty.get(base_url + 'attractions/' + id + '.json?apikey=' + Rails.application.secrets.ticketmaster_key, verify: false)
-
-	  name = comedian_response["name"]
-	  id = comedian_response["id"]
-	  image = comedian_response["images"][4]["url"]
-
-	  @comedian = Comedian.create(name: name, ticketmaster_id: id)
-	  @comedian.picture = URI.parse(image)
-	  @comedian.save
-	  return @comedian
+	  if @comedian = Comedian.find_by(ticketmaster_id: comedian_response["id"])
+	  	return @comedian
+	  else
+	  	name = comedian_response["name"]
+	  	id = comedian_response["id"]
+	  	image = comedian_response["images"][4]["url"]
+		  @comedian = Comedian.create(name: name, ticketmaster_id: id)
+		  @comedian.picture = URI.parse(image)
+		  @comedian.save
+	    @comedian.add_shows
+		  return @comedian
+		end
 	end
 
 	def self.search_ticketmaster(name)
 		base_url = "https://app.ticketmaster.com/discovery/v2/"
 		comedian_response = HTTParty.get(base_url + 'attractions.json?apikey=' + Rails.application.secrets.ticketmaster_key + '&keyword=' + name, verify: false)
 		return comedian_response["_embedded"]["attractions"]
+	end
+
+	def add_shows
+		Show.bulk_ticketmaster_adder(self)
 	end
 end
