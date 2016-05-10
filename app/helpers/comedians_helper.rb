@@ -1,8 +1,14 @@
 module ComediansHelper
 
-  def admin_options
+  def comedians_index_options
     if admin_check?
       render 'comedians/admin_comedian_options'
+    end
+  end
+
+  def comedian_show_options(comedian)
+    if admin_check?
+      render partial: 'comedians/comedian_show_options', locals: { comedian: comedian }
     end
   end
 

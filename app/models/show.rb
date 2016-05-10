@@ -6,8 +6,12 @@ class Show < ActiveRecord::Base
 	validates_presence_of :venue_id
 	validates_presence_of :showtime
 
-  def short_time
-    self.showtime.strftime('%m/%-d')
+  def short_date
+    self.showtime.strftime('%-m/%-d')
+  end
+
+  def short_datetime
+    self.showtime.strftime('%l:%M %p %b %-d')
   end
   
 	def book_comedian(comedian)

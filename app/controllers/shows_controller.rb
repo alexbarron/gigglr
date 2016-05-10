@@ -24,7 +24,7 @@ class ShowsController < ApplicationController
       venues = Venue.near(user_loc.postal_code, 50)
     end
     venue_ids = venues.map(&:id)
-    @shows = Show.where('showtime > ? AND venue_id IN (?)', Time.now, venue_ids).order("showtime ASC")
+    @shows = Show.where('showtime > ? AND venue_id IN (?)', Time.now, venue_ids).order("showtime ASC").limit(20)
   end
 
   def show

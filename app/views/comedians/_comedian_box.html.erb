@@ -12,7 +12,7 @@
 
           <h2>Upcoming Shows:</h2> 
           <% comedian.future_shows.limit(3).each do |show| %>
-            <p><%= link_to "#{show.short_time} #{show.venue.city_state}", show %></p>
+            <p><%= link_to "#{show.short_date} #{show.venue.city_state}", show %></p>
           <% end %>
               
         </div>

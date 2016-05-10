@@ -12,7 +12,7 @@ class ComediansController < ApplicationController
   end
 
   def show
-    @shows = @comedian.shows.where("showtime > ?", Time.now).sort { |a,b| a.showtime <=> b.showtime }
+    @shows = @comedian.future_shows
   end
 
   def new

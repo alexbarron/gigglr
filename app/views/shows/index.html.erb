@@ -1,19 +1,12 @@
 <div id="header_container">
-  <div class="row">
-    <div class="col-md-8">
-      <span id="header"> Stand Up Shows Near <span id="citySpan"><%= @city %></span></span>
-      <button id="changeCityBtn" class="btn btn-sm btn-primary">Change</button>
-      <%= form_tag root_path, id: "changeCityForm", class: "hide", method: :get do %>
-      <%= text_field_tag :locsearch, params[:locsearch], placeholder: "City, State(US)" %>
-      <% end %>
-      
-    </div>
-  </div>
+  <span id="header"> Stand Up Shows Near <span id="citySpan"><%= @city %></span></span>
+  <button id="changeCityBtn" class="btn btn-sm btn-primary">Change</button>
+  <%= form_tag root_path, id: "changeCityForm", class: "hide", method: :get do %>
+    <%= text_field_tag :locsearch, params[:locsearch], placeholder: "City, State(US)" %>
+  <% end %>
 </div>
 
-<% if user_signed_in? && current_user.admin? %>
-	<%= link_to 'Add show', new_show_path %>
-<% end %>
+<%= shows_index_options %>
 
 <div class="row">
 	<div class="col-md-12">
@@ -23,22 +16,7 @@
 			<% @shows.in_groups_of(2) do |group| %>
 				<div class="row">
 					<% group.compact.each do |show| %>
-						<div class="col-md-6">
-							<%= link_to(show) do %>
-								<div class="box panel panel-default">
-									<div class="panel-body row">
-										<div class="col-md-4">
-	        								<h2><%= link_to show.name, show %></h2>
-	        						
-	        								<h3><%= link_to "#{show.showtime.strftime('%m/%-d')} #{show.venue.name}", show %></h3> 
-        								</div>
-        								<div class="col-md-8">
-        									<%= link_to image_tag(show.comedians.first.picture.url(:medium)), show unless show.comedians.first.nil? %>
-        								</div>
-									</div>
-								</div>
-							<% end %>
-						</div>
+            <%= render partial: 'show_box', locals: { show: show } %>
 					<% end %>
 				</div>
 			<% end %>
