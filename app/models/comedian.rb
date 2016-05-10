@@ -38,13 +38,18 @@ class Comedian < ActiveRecord::Base
 		return comedian_response["_embedded"]["attractions"]
 	end
 
-	def add_shows
-		Show.bulk_ticketmaster_adder(self)
-	end
-
 	def self.update_comedians_shows
 		self.all.each do |comedian|
 			comedian.add_shows
 		end
 	end
+
+	def add_shows
+		Show.bulk_ticketmaster_adder(self)
+	end
+
+	def future_shows
+		self.shows.where("showtime > ?", Time.now).order("showtime ASC")
+	end
+
 end

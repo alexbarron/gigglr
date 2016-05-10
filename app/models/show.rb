@@ -6,6 +6,10 @@ class Show < ActiveRecord::Base
 	validates_presence_of :venue_id
 	validates_presence_of :showtime
 
+  def short_time
+    self.showtime.strftime('%m/%-d')
+  end
+  
 	def book_comedian(comedian)
 		booked_comedians.create(comedian_id: comedian.id) unless self.comedians.where(id: comedian.id).any?
 	end

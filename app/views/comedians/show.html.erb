@@ -6,15 +6,7 @@
 
 <div class="row">
 	<div class="col-md-4">
-    	<% if user_signed_in? %>
-			<% if current_user.fan_of?(@comedian) %>
-				<%= render 'unfollow' %>
-			<% else %>
-				<%= render 'follow' %>
-			<% end %>
-		<% else %>
-			<%= button_to 'Follow', new_user_session_path, method: :get, class: 'btn btn-primary' %>
-		<% end %>
+		<%= follow_unfollow(@comedian) %>
 		<br />
 		<%= image_tag @comedian.picture.url(:medium) %>
 		<p><%= @comedian.description %></p>

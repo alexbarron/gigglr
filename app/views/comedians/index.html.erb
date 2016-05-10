@@ -1,51 +1,13 @@
 <h3>Most Popular Comedians</h3>
 
-<%= link_to 'New Comedian', new_comedian_path if user_signed_in? && current_user.admin? %><br />
-<%= link_to "Update All Comedian's Shows", update_comedians_shows_path if user_signed_in? && current_user.admin? %><br />
-<%= link_to 'Search Ticketmaster Comedians', comedians_ticketmaster_search_path if user_signed_in? && current_user.admin? %>
-
+<%= admin_options %>
 
 <div class="row">
 	<div class="col-md-12">
 			<% @comedians.in_groups_of(2) do |group| %>
 				<div class="row">
 					<% group.compact.each do |comedian| %>
-						<div class="col-md-6">
-							<%= link_to(comedian) do %>
-								<div class="box panel panel-default">
-									<div class="panel-body row">
-										<div class="col-md-4">
-	        								<h2>
-	        									<%= link_to comedian.name, comedian %><br />
-	        									(<span id="fans-<%= comedian.id %>"><%= comedian.users.count %></span> <%= 'Fan'.pluralize(comedian.users.count) %>)
-	        								</h2>
-	        								<h2>Upcoming Shows:</h2> 
-	        								<% comedian.shows.where("showtime > ?", Time.now).order("showtime ASC").limit(3).each do |show| %>
-	        									<p><%= link_to "#{show.showtime.strftime('%m/%-d')} #{show.venue.city_state}", show %></p>
-	        								<% end %>
-	        								<% if user_signed_in? %>
-	        									<% if current_user.fan_of?(comedian) %>
-	        										<%= simple_form_for current_user.active_relationships.find_by(comedian_id: comedian.id), html: { method: :delete } do |f| %>
-														<%= f.submit 'Unfollow', class: 'btn btn-primary' %>
-													<% end %>
-	        									<% else %>
-	        										<%= simple_form_for current_user.active_relationships.build do |f| %>
-														<%= hidden_field_tag :comedian_id, comedian.id %>
-														<%= f.submit 'Follow', class: 'btn btn-primary' %>
-													<% end %>
-	        									<% end %>
-	        								<% else %>
-	        									<%= button_to 'Follow', new_user_session_path, method: :get, class: 'btn btn-primary', params: { :com_id => comedian.id } %>
-	        								<% end %>
-        								</div>
-        								<div class="col-md-8">
-        									<%= link_to image_tag(comedian.picture.url(:medium)), comedian %>
-        								</div>
-
-									</div>
-								</div>
-							<% end %>
-						</div>
+						<%= render partial: 'comedian_box', locals: {comedian: comedian} %>
 					<% end %>
 				</div>
 		<% end %>
