@@ -1,7 +1,7 @@
 class ComediansController < ApplicationController
   before_action :set_comedian, only: [:show, :edit, :update, :destroy, :update_ticketmaster_shows]
-  before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy, :add_ticketmaster_comedian, :update_ticketmaster_shows]
-  before_action :admin_user, only: [:new, :create, :edit, :update, :destroy, :add_ticketmaster_comedian, :update_ticketmaster_shows]
+  before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy, :add_ticketmaster_comedian, :update_ticketmaster_shows, :update_comedians_shows]
+  before_action :admin_user, only: [:new, :create, :edit, :update, :destroy, :add_ticketmaster_comedian, :update_ticketmaster_shows, :update_comedians_shows]
   
   def index
     if params[:search]
@@ -60,6 +60,11 @@ class ComediansController < ApplicationController
   def update_ticketmaster_shows
     @comedian.add_shows
     redirect_to @comedian
+  end
+
+  def update_comedians_shows
+    Comedian.update_comedians_shows
+    redirect_to comedians_path, notice: "Successfully updated all comedians' shows"
   end
 
   private
