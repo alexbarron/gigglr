@@ -2,12 +2,7 @@
 	<%= f.input :name %>
 	<%= f.input :description %>
 	<%= f.input :showtime %>
-
 	<%= f.label :venue_id %>
-    <%= f.select(:venue_id) do %>
-      <% @venues.each do |venue| -%>
-        <%= content_tag(:option, venue.name, value: venue.id) %>
-      <% end %>
-    <% end %>
+  <%= f.collection_select(:venue_id, Venue.all.order("name ASC"), :id, :name) %>
 	<%= f.submit 'Submit' %>
 <% end %>

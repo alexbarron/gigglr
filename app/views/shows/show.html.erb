@@ -21,15 +21,12 @@
 			    <% end %>
 			</ul>
 		<% end %>
-		<p>
-			<%= @show.showtime.strftime('%l:%M %p %b %e, %Y') %>
-		</p>
 		<h4>Show Info:</h4>
 		<p>
 			<%= @show.description %>
 		</p>
 		<p>
-			<%= @show.showtime.strftime('%l:%M %p %b %e, %Y') %>
+			<%= @show.long_datetime %>
 		</p>
 		<p>
 			<%= link_to @show.venue.name, @show.venue %><br /> 
@@ -46,8 +43,7 @@
 			<li>
 				<%= link_to comedian.name, comedian %> (<%= comedian.users.count %> <%= 'Fan'.pluralize(comedian.users.count) %>)
 				<% if user_signed_in? && current_user.admin? %>
-					<%= form_for(@show.booked_comedians.find_by(comedian_id: comedian.id),
-					html: { method: :delete }) do |f| %>
+					<%= form_for(@show.booked_comedians.find_by(comedian_id: comedian.id), html: { method: :delete }) do |f| %>
 						<%= f.hidden_field :show_id, value: @show.id %>
 						<%= f.hidden_field :comedian_id, value: comedian.id %>
 						<%= f.submit 'Remove Comedian' %>
@@ -58,8 +54,4 @@
 	</ul>
 <% end %>
 
-<% if user_signed_in? && current_user.admin? %>
-	<%= link_to 'Delete', show_path(@show), method: :delete, data: { confirm: 'Are you sure?' } %>
-	<%= link_to 'Edit Show', edit_show_path(@show) %>
-	<%= render 'add_comedian' unless @comedians.empty? %>
-<% end %>
+<%= shows_show_options(@show) %>

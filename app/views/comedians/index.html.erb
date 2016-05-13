@@ -7,7 +7,7 @@
 			<% @comedians.in_groups_of(2) do |group| %>
 				<div class="row">
 					<% group.compact.each do |comedian| %>
-						<%= render partial: 'comedian_box', locals: {comedian: comedian} %>
+						<%= render partial: 'comedian_box', locals: { comedian: comedian} %>
 					<% end %>
 				</div>
 		<% end %>

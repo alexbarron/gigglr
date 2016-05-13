@@ -13,6 +13,10 @@ class Show < ActiveRecord::Base
   def short_datetime
     self.showtime.strftime('%l:%M %p %b %-d')
   end
+
+  def long_datetime
+    self.showtime.strftime('%l:%M %p %b %e, %Y')
+  end
   
 	def book_comedian(comedian)
 		booked_comedians.create(comedian_id: comedian.id) unless self.comedians.where(id: comedian.id).any?
