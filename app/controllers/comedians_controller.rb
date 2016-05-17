@@ -7,7 +7,7 @@ class ComediansController < ApplicationController
     if params[:search]
       @comedians = Comedian.search(params[:search])
     else
-      @comedians = Comedian.all.sort { |b,a| a.users.count <=> b.users.count }
+      @comedians = Comedian.order("fan_count DESC").includes(:users, :shows).where("shows.showtime > ?", Time.now ).order("shows.showtime ASC").references(:shows)
     end
   end
 

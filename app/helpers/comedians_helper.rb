@@ -13,7 +13,7 @@ module ComediansHelper
   end
 
   def follow_unfollow(comedian)
-    if !!current_user && current_user.fan_of?(comedian)
+    if !!current_user && comedian.users.include?(current_user)
       render partial: 'unfollow', locals: { comedian: comedian }
     elsif !!current_user
       render partial: 'follow', locals: { comedian: comedian }
