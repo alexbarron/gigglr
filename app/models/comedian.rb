@@ -44,6 +44,10 @@ class Comedian < ActiveRecord::Base
 		end
 	end
 
+	def self.all_with_shows_and_users
+		self.order("fan_count DESC").includes(:users, :shows).where("shows.showtime > ?", Time.now ).order("shows.showtime ASC").references(:shows)
+	end
+
 	def add_shows
 		Show.bulk_ticketmaster_adder(self)
 	end

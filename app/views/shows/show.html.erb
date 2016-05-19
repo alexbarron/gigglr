@@ -3,18 +3,18 @@
 </div>
 
 <div class="row">
-	<% unless @full_lineup.nil? %>
+	<% unless @lineup.nil? %>
 	<div class="col-md-4">
-		<%= image_tag @full_lineup.first.picture.url(:medium)%>
+		<%= image_tag @lineup.first.picture.url(:medium)%>
 	</div>
 	<div class="col-md-8">
-		<h3>Headliner: <%= link_to @full_lineup.first.name, @full_lineup.first %></h3>
-		<p><%= @full_lineup.first.description %></p>
+		<h3>Headliner: <%= link_to @lineup.first.name, @lineup.first %></h3>
+		<p><%= @lineup.first.description %></p>
 		<% end %>
-		<% if @full_lineup.count > 1 %>
+		<% if @lineup.count > 1 %>
 			<h4>Also Featuring:</h4>
 			<ul class="shows">
-			    <% @full_lineup.drop(1).each do |comedian| %>
+			    <% @lineup.drop(1).each do |comedian| %>
 				    <li>
 				    	<%= link_to comedian.name, comedian %>
 				    </li>
@@ -35,11 +35,11 @@
 	</div>
 </div>
 
-<% if @full_lineup.empty? %>
+<% if @lineup.empty? %>
 	<p>No comedians booked yet</p>
-<% elsif @full_lineup.any? %>
+<% elsif @lineup.any? %>
 	<ul>
-		<% @full_lineup.each do |comedian| %>
+		<% @lineup.each do |comedian| %>
 			<li>
 				<%= link_to comedian.name, comedian %> (<%= comedian.fan_count %> <%= 'Fan'.pluralize(comedian.fan_count) %>)
 				<% if user_signed_in? && current_user.admin? %>

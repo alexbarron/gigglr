@@ -4,10 +4,9 @@ Geocoder.configure(
   :lookup       => :google,     # name of geocoding service (symbol)
   # :language     => :en,         # ISO-639 language code
   #:use_https    => true,       # use HTTPS for lookup requests? (if supported)
-  :ip_lookup => :freegeoip,
+  :ip_lookup => :ipapi_com,
   # :http_proxy   => nil,         # HTTP proxy server (user:pass@host:port)
   # :https_proxy  => nil,         # HTTPS proxy server (user:pass@host:port)
-  #:api_key      => "AIzaSyBs_O9xbNpyYQq20hTc3SgJKI6_HO7XV_A",         # API key for geocoding service
   # :cache        => nil,         # cache object (must respond to #[], #[]=, and #keys)
   # :cache_prefix => "geocoder:", # prefix (string) to use for all cache keys
 

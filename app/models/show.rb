@@ -43,6 +43,12 @@ class Show < ActiveRecord::Base
 		end
 	end
 
+  def self.nearby(location, distance_pref)
+    venues = Venue.near(location, distance_pref)
+    venue_ids = venues.map(&:id)
+    Show.where('showtime > ? AND venue_id IN (?)', Time.now, venue_ids).includes(:comedians, :venue).order("showtime ASC").limit(20)
+  end
+
 	def self.add_ticketmaster_show(show, comedian)
     if existing_show = Show.find_by(ticketmaster_id: show["id"])
       existing_show.book_comedian(comedian)

@@ -4,32 +4,23 @@ class ShowsController < ApplicationController
   before_action :admin_user, only: [:new, :create, :edit, :update, :destroy]
   
   def index
-    @shows = []
-    @city = ""
-
     if params[:locsearch]
-      user_loc = Geocoder.search(params[:locsearch]).first
-      @city = user_loc.city + ', ' + user_loc.state_code
-      venues = Venue.near(params[:locsearch], 50)
+      location = Geocoder.search(params[:locsearch]).first
+      @city = location.city + ', ' + location.state_code
     elsif current_user
       @city = current_user.city + ', ' + current_user.state
-      venues = Venue.near(current_user.location, current_user.distance_pref)
     else
-      local_ip = '167.187.101.240'
-      ip = Rails.env.development? || Rails.env.test? ? local_ip : request.remote_ip
-      user_loc = Geocoder.search(ip).first
-      @city = user_loc.city + ', ' + user_loc.state_code
-      #@city = "Los Angeles, CA"
-      #venues = Venue.near(@city, 50)
-      venues = Venue.near(user_loc.postal_code, 50)
+      ip = Rails.env.development? || Rails.env.test? ? '167.187.101.240' : request.remote_ip
+      location = Geocoder.search(ip).first
+      @city = location.city + ', ' + location.region
     end
-    venue_ids = venues.map(&:id)
-    @shows = Show.where('showtime > ? AND venue_id IN (?)', Time.now, venue_ids).includes(:comedians, :venue).order("showtime ASC").limit(20)
+    distance_pref = current_user ? current_user.distance_pref : 50
+    @shows = Show.nearby(@city, distance_pref)
   end
 
   def show
-    @full_lineup = @show.comedians.order("fan_count DESC")
-    @comedians = Comedian.order("name ASC") - @full_lineup
+    @lineup = @show.comedians.order("fan_count DESC")
+    @comedians = Comedian.order("name ASC") - @lineup
   end
 
   def new
