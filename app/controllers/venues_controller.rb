@@ -7,6 +7,7 @@ class VenuesController < ApplicationController
   end
 
   def show
+    @shows = @venue.shows
   end
 
   def new

@@ -3,18 +3,18 @@
 </div>
 
 <div class="row">
-	<% unless @headliner.nil? %>
+	<% unless @full_lineup.nil? %>
 	<div class="col-md-4">
-		<%= image_tag @headliner.picture.url(:medium)%>
+		<%= image_tag @full_lineup.first.picture.url(:medium)%>
 	</div>
 	<div class="col-md-8">
-		<h3>Headliner: <%= link_to @headliner.name, @headliner %></h3>
-		<p><%= @headliner.description %></p>
+		<h3>Headliner: <%= link_to @full_lineup.first.name, @full_lineup.first %></h3>
+		<p><%= @full_lineup.first.description %></p>
 		<% end %>
-		<% if @openers.any? %>
+		<% if @full_lineup.count > 1 %>
 			<h4>Also Featuring:</h4>
 			<ul class="shows">
-			    <% @openers.each do |comedian| %>
+			    <% @full_lineup.drop(1).each do |comedian| %>
 				    <li>
 				    	<%= link_to comedian.name, comedian %>
 				    </li>
@@ -37,17 +37,13 @@
 
 <% if @full_lineup.empty? %>
 	<p>No comedians booked yet</p>
-<% elsif @full_lineup.count >= 1 %>
+<% elsif @full_lineup.any? %>
 	<ul>
 		<% @full_lineup.each do |comedian| %>
 			<li>
-				<%= link_to comedian.name, comedian %> (<%= comedian.users.count %> <%= 'Fan'.pluralize(comedian.users.count) %>)
+				<%= link_to comedian.name, comedian %> (<%= comedian.fan_count %> <%= 'Fan'.pluralize(comedian.fan_count) %>)
 				<% if user_signed_in? && current_user.admin? %>
-					<%= form_for(@show.booked_comedians.find_by(comedian_id: comedian.id), html: { method: :delete }) do |f| %>
-						<%= f.hidden_field :show_id, value: @show.id %>
-						<%= f.hidden_field :comedian_id, value: comedian.id %>
-						<%= f.submit 'Remove Comedian' %>
-					<% end %>
+					<%= button_to "Remove Comedian", booking_path(show_id: @show.id, comedian_id: comedian.id), method: :delete %>
 				<% end %>
 			</li>
 		<% end %>

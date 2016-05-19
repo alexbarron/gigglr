@@ -11,7 +11,7 @@ class BookingsController < ApplicationController
 	end
 
 	def destroy
-		@booking = Booking.find(params[:id])
+		@booking = Booking.find_by(show_id: params[:show_id], comedian_id: params[:comedian_id])
 		@show = @booking.show
 		@show.unbook_comedian(@booking.comedian)
 		redirect_to @show, notice: 'Comedian removed from show'

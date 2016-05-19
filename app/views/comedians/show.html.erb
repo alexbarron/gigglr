@@ -1,6 +1,6 @@
 <div class="row">
     <h1>
-    	<%= @comedian.name %> (<%= @comedian.users.count %> <%= 'Fan'.pluralize(@comedian.users.count) %>)
+    	<%= @comedian.name %> (<%= @comedian.fan_count %> <%= 'Fan'.pluralize(@comedian.fan_count) %>)
     </h1>
 </div>
 
@@ -19,7 +19,7 @@
 			<ul class="shows">
 			    <% @shows.each do |show| %>
 				    <li>
-				    	<%= link_to show.name, show %> <%= show.showtime.strftime("%b %e at %-I:%M %p") %> at <%= show.venue.name %>
+				    	<%= link_to show.name, show %> <%= show.long_datetime %> at <%= show.venue.name %>
 				    </li>
 			    <% end %>
 			</ul>

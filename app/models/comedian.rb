@@ -49,7 +49,7 @@ class Comedian < ActiveRecord::Base
 	end
 
 	def future_shows
-		self.shows.where("showtime > ?", Time.now).order("showtime ASC")
+		self.shows.where("showtime > ?", Time.now).order("showtime ASC").includes(:venue)
 	end
 
 end

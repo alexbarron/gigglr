@@ -7,11 +7,11 @@
 <% end %>
 
 <h2>Shows at this venue</h2>
-<% if @venue.shows.empty? %>
+<% if @shows.empty? %>
 	<p>Sorry, no shows scheduled here yet!</p>
 <% else %>
 	<ul>
-	<% @venue.shows.each do |show| %>
+	<% @shows.each do |show| %>
 		<li><%= link_to "#{show.name}: #{show.showtime}", show %></li>
 	<% end %>
 	</ul>

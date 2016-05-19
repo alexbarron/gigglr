@@ -1,6 +1,6 @@
 <%= simple_form_for @show.booked_comedians.build do |f| %>
   <%= f.hidden_field :show_id, value: @show.id %>	
 	<%= f.label :comedian_id %>
-  <%= f.collection_select(:comedian_id, Comedian.all.order("name ASC"), :id, :name) %>
+  <%= f.collection_select(:comedian_id, @comedians, :id, :name) %>
 	<%= f.submit 'Add Comedian' %>
 <% end %>

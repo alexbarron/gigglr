@@ -24,18 +24,12 @@ class ShowsController < ApplicationController
       venues = Venue.near(user_loc.postal_code, 50)
     end
     venue_ids = venues.map(&:id)
-    @shows = Show.where('showtime > ? AND venue_id IN (?)', Time.now, venue_ids).order("showtime ASC").limit(20)
+    @shows = Show.where('showtime > ? AND venue_id IN (?)', Time.now, venue_ids).includes(:comedians, :venue).order("showtime ASC").limit(20)
   end
 
   def show
-    @full_lineup = @show.comedians.sort { |b,a| a.users.count <=> b.users.count }
-    @comedians = Comedian.all.sort { |a,b| a.name.downcase <=> b.name.downcase }
-    @full_lineup.each do |x|
-      @comedians.delete(x)
-    end
-    @headliner = @full_lineup.first
-    @openers = @full_lineup.clone
-    @openers.delete(@headliner)
+    @full_lineup = @show.comedians.order("fan_count DESC")
+    @comedians = Comedian.order("name ASC") - @full_lineup
   end
 
   def new

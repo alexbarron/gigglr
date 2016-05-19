@@ -10,14 +10,6 @@
 
           <%= follow_unfollow(comedian) %>
 
-         <% if comedian.users.include?(current_user) %>
-          Hellooo!!
-         <% end %>
-
-          <% comedian.users.each do |user| %>
-            <li><%= user.email %></li>
-          <% end %>
-
           <h2>Upcoming Shows:</h2> 
           <% comedian.shows.first(3).each do |show| %>
             <p><%= link_to "#{show.short_date}", show %></p>
