@@ -26,19 +26,19 @@ class ApplicationController < ActionController::Base
     end
 
     def after_sign_in_path_for(resource)
-      # is below session include check necessary? Try deleting it and seeing if this still works later.
-      if params[:user][:com_id]
-        comedian = Comedian.find(params[:user][:com_id])
-        current_user.follow(comedian) unless current_user.fan_of?(comedian)
-      end
+      follow_after_authentication if params[:user][:com_id]
       session[:previous_url] || root_path
     end
 
     def after_sign_up_path_for(resource)
-      if params[:user][:com_id]
-        comedian = Comedian.find(params[:user][:com_id])
-        current_user.follow(comedian)
-      end
+      follow_after_authentication if params[:user][:com_id]
       session[:previous_url] || root_path
+    end
+
+    private
+
+    def follow_after_authentication
+      comedian = Comedian.find(params[:user][:com_id])
+      current_user.follow(comedian) unless current_user.fan_of?(comedian)
     end
 end

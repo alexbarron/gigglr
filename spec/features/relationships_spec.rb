@@ -1,8 +1,9 @@
 require 'rails_helper'
 
-describe 'Relationships' do
+describe 'Relationships', focus: true do
 	before :each do
 		@comedian = create(:comedian, name: 'Chris Rock')
+		booking = create(:booking, comedian_id: @comedian.id)
 	end
 	context 'as a guest' do
 		scenario 'clicking follow redirects to login' do
@@ -37,7 +38,7 @@ describe 'Relationships' do
 		end
 
 		scenario 'unfollows a comedian from comedian show page' do
-			relationship = create(:relationship, comedian_id: @comedian.id, user_id: @user.id)
+			@user.follow(@comedian)
 			VCR.use_cassette("user visits shows index") do
 				visit root_path
 			end

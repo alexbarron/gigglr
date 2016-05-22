@@ -5,7 +5,7 @@
         <div class="col-md-6">
               <h2><%= link_to show.name, show %></h2>
 
-              <h4><%= link_to show.short_datetime, show %><br/><%= link_to show.venue.name, show %></h4>
+              <h4><%= link_to show.short_datetime, show %><br/> <%= link_to show.venue.name, show %></h4>
             </div>
             <div class="col-md-6">
               <%= link_to image_tag(show.comedians.first.picture.url(:medium), width: "230"), show unless show.comedians.first.nil? %>

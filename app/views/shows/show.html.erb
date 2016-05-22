@@ -3,7 +3,7 @@
 </div>
 
 <div class="row">
-	<% unless @lineup.nil? %>
+	<% unless @lineup.empty? %>
 	<div class="col-md-4">
 		<%= image_tag @lineup.first.picture.url(:medium)%>
 	</div>

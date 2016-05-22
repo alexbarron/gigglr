@@ -11,8 +11,9 @@ RSpec.describe ComediansController, :type => :controller do
       it "returns array of comedians" do
         comedian1 = create(:comedian)
         comedian2 = create(:comedian)
+        booking = create(:booking, comedian_id: comedian1.id)
         get :index
-        expect(assigns(:comedians)).to match_array [comedian1, comedian2]
+        expect(assigns(:comedians)).to match_array [comedian1]
       end
     end
     describe "GET show" do

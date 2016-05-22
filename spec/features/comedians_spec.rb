@@ -4,6 +4,7 @@ feature 'Comedians' do
 	shared_examples 'logged in view of comedians' do
 		scenario "access comedian show page from comedian index" do
 			comedian = create(:comedian)
+			booking = create(:booking, comedian_id: comedian.id)
 			click_link 'Comedians'
 			expect(page).to have_content comedian.name
 			click_link comedian.name
@@ -51,10 +52,7 @@ feature 'Comedians' do
 
 		scenario 'edits a comedian' do
 			comedian = create(:comedian)
-			click_link 'Comedian'
-			expect(page).to have_content comedian.name
-			click_link comedian.name
-			expect(current_path).to eq comedian_path(comedian)
+			visit comedian_path(comedian)
 			click_link 'Edit'
 			fill_in 'Name', with: 'Jerry Seinfeld'
 			fill_in 'Description', with: 'From the hit TV show Seinfeld.'
@@ -67,9 +65,7 @@ feature 'Comedians' do
 
 		scenario 'deletes a comedian' do
 			comedian = create(:comedian)
-			click_link 'Comedians'
-			click_link comedian.name
-			expect(current_path).to eq comedian_path(comedian)
+			visit comedian_path(comedian)
 			click_link 'Delete'
 			expect(current_path).to eq comedians_path
 			expect(page).not_to have_content comedian.name
@@ -93,8 +89,7 @@ feature 'Comedians' do
 		end
 		scenario 'cannot see edit or delete comedian link' do
 			comedian = create(:comedian)
-			click_link 'Comedians'
-			click_link comedian.name
+			visit comedian_path(comedian)
 			expect(page).not_to have_link 'Edit Comedian'
 			expect(page).not_to have_link 'Delete'
 		end
@@ -103,6 +98,7 @@ feature 'Comedians' do
 	context "as a guest" do
 		scenario "access comedian show page from comedian index" do
 			comedian = create(:comedian)
+			booking = create(:booking, comedian_id: comedian.id)
 			VCR.use_cassette("guest visits shows index") do
 				visit root_path
 			end
@@ -122,11 +118,7 @@ feature 'Comedians' do
 		end
 		scenario 'cannot see edit or delete comedian link' do
 			comedian = create(:comedian)
-			VCR.use_cassette("guest visits shows index") do
-				visit root_path
-			end
-			click_link 'Comedians'
-			click_link comedian.name
+			visit comedian_path(comedian)
 			expect(page).not_to have_link 'Edit Comedian'
 			expect(page).not_to have_link 'Delete'
 		end

@@ -46,11 +46,7 @@ describe 'Venues' do
 
 		scenario 'edits a venue' do
 			venue = create(:venue)
-			click_link 'Venues'
-			expect(page).to have_content venue.name
-			expect(page).to have_content venue.city
-			click_link venue.name
-			expect(current_path).to eq venue_path(venue)
+			visit venue_path(venue)
 			click_link 'Edit Venue'
 			fill_in 'Name', with: 'Comedy Store'
 			fill_in 'City', with: 'Hollywood'
@@ -62,8 +58,7 @@ describe 'Venues' do
 
 		scenario 'deletes a venue' do
 			venue = create(:venue)
-			click_link 'Venues'
-			click_link venue.name
+			visit venue_path(venue)
 			expect(current_path).to eq venue_path(venue)
 			click_link 'Delete'
 			expect(current_path).to eq venues_path
@@ -87,8 +82,7 @@ describe 'Venues' do
 
 		scenario 'cannot see edit or delete venue link' do
 			venue = create(:venue)
-			click_link 'Venues'
-			click_link venue.name
+			visit venue_path(venue)
 			expect(page).not_to have_link 'Edit Venue'
 			expect(page).not_to have_link 'Delete'
 		end
@@ -100,10 +94,7 @@ describe 'Venues' do
 		scenario "access venue page from venue index" do
 			venue = create(:venue, id: 1)
 			show = create(:show, name: "Louis CK In Santa Monica", venue_id: 1)
-			VCR.use_cassette("guest visits shows index") do
-				visit root_path
-			end
-			click_link 'Venues'
+			visit venues_path
 			expect(page).to have_content venue.name
 			click_link venue.name
 			expect(current_path).to eq venue_path(venue.id)
@@ -113,20 +104,13 @@ describe 'Venues' do
 		end
 
 		scenario 'cannot see add venue link' do
-			VCR.use_cassette("guest visits shows index") do
-				visit root_path
-			end
-			click_link 'Venues'
+			visit venues_path
 			expect(page).not_to have_link 'Add venue'
 		end
 
 		scenario 'cannot see edit or delete venue link' do
 			venue = create(:venue)
-			VCR.use_cassette("guest visits shows index") do
-				visit root_path
-			end
-			click_link 'Venues'
-			click_link venue.name
+			visit venue_path(venue)
 			expect(page).not_to have_link 'Edit Venue'
 			expect(page).not_to have_link 'Delete'
 		end

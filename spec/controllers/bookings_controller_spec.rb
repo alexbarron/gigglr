@@ -61,11 +61,11 @@ RSpec.describe BookingsController, :type => :controller do
 			end
 			it 'deletes the booking' do
 				expect{
-					delete :destroy, id: @booking
+					delete :destroy, id: @booking, show_id: @show.id, comedian_id: @comedian.id
 				}.to change(Booking, :count).by(-1)
 			end
 			it 'redirects to @show' do
-				delete :destroy, id: @booking
+				delete :destroy, id: @booking, show_id: @show.id, comedian_id: @comedian.id
 				expect(response).to redirect_to @show
 			end
 		end

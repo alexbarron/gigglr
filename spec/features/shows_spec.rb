@@ -51,7 +51,7 @@ describe 'Shows' do
 			end
 			expect(current_path).to eq shows_path
 			expect(page).to have_content 'Successfully created show'
-			expect(page).to have_content "5/29 Alejandro's Comedy Shop"
+			expect(page).to have_content "May 29 Alejandro's Comedy Shop"
 		end
 
 		scenario 'edits a show' do
