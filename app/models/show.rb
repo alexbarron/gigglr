@@ -65,7 +65,7 @@ class Show < ActiveRecord::Base
 
 	def self.bulk_ticketmaster_adder(comedian)
 	  base_url = "https://app.ticketmaster.com/discovery/v2/"
-	  events_response = HTTParty.get(base_url + "events.json?apikey=" + Rails.application.secrets.ticketmaster_key + "&attractionId=" + comedian.ticketmaster_id, :verify => false)
+	  events_response = HTTParty.get(base_url + "events.json?apikey=" + ENV["TICKETMASTER_KEY"] + "&attractionId=" + comedian.ticketmaster_id, :verify => false)
 	  if !!events_response && !!events_response["_embedded"]
 	    events_response["_embedded"]["events"].each do |show|
 	    	Show.add_ticketmaster_show(show, comedian)

@@ -27,7 +27,7 @@ class Venue < ActiveRecord::Base
 	    return @venue
 	  else
 	    base_url = "https://app.ticketmaster.com/discovery/v2/"
-	    venue_response = HTTParty.get(base_url + "venues/" + id + ".json?apikey=" + Rails.application.secrets.ticketmaster_key, verify: false)
+	    venue_response = HTTParty.get(base_url + "venues/" + id + ".json?apikey=" + ENV["TICKETMASTER_KEY"], verify: false)
 	    if venue_response["country"]["countryCode"] === "US"
 	      venue_params = {
 	        name: venue_response["name"],

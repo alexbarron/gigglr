@@ -17,7 +17,7 @@ class Comedian < ActiveRecord::Base
 
 	def self.add_ticketmaster_comedian(id)
 	  base_url = "https://app.ticketmaster.com/discovery/v2/"
-	  comedian_response = HTTParty.get(base_url + 'attractions/' + id + '.json?apikey=' + Rails.application.secrets.ticketmaster_key, verify: false)
+	  comedian_response = HTTParty.get(base_url + 'attractions/' + id + '.json?apikey=' + ENV["TICKETMASTER_KEY"], verify: false)
 	  if @comedian = Comedian.find_by(ticketmaster_id: comedian_response["id"])
 	  	return @comedian
 	  else
@@ -34,7 +34,7 @@ class Comedian < ActiveRecord::Base
 
 	def self.search_ticketmaster(name)
 		base_url = "https://app.ticketmaster.com/discovery/v2/"
-		comedian_response = HTTParty.get(base_url + 'attractions.json?apikey=' + Rails.application.secrets.ticketmaster_key + '&keyword=' + name, verify: false)
+		comedian_response = HTTParty.get(base_url + 'attractions.json?apikey=' + ENV["TICKETMASTER_KEY"] + '&keyword=' + name, verify: false)
 		return comedian_response["_embedded"]["attractions"]
 	end
 
