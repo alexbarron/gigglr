@@ -3,7 +3,7 @@ class VenuesController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
   before_action :admin_user, only: [:new, :create, :edit, :update, :destroy]
   def index
-    @venues = Venue.all
+    @venues = Venue.order("state ASC")
   end
 
   def show

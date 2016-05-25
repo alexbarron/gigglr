@@ -1,5 +1,4 @@
-<h1>Venues#show</h1>
-<%= @venue.name %><br />
+<h2><%= @venue.name %></h2>
 <%= @venue.full_address %>
 <% if user_signed_in? && current_user.admin? %>
 	<%= link_to 'Edit Venue', edit_venue_path(@venue) %>
@@ -12,7 +11,7 @@
 <% else %>
 	<ul>
 	<% @shows.each do |show| %>
-		<li><%= link_to "#{show.name}: #{show.showtime}", show %></li>
+		<li><%= link_to "#{show.name}: #{show.long_datetime}", show %></li>
 	<% end %>
 	</ul>
 <% end %>

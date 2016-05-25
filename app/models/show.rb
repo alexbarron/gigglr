@@ -11,7 +11,7 @@ class Show < ActiveRecord::Base
   end
 
   def short_datetime
-    self.showtime.strftime('%l:%M %p %b %-d')
+    self.showtime.strftime('%b %-d %l:%M %p')
   end
 
   def long_datetime
