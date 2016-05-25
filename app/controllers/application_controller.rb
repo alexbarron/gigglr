@@ -26,11 +26,13 @@ class ApplicationController < ActionController::Base
     end
 
     def after_sign_in_path_for(resource)
+      segment_identify
       follow_after_authentication if params[:user][:com_id]
       session[:previous_url] || root_path
     end
 
     def after_sign_up_path_for(resource)
+      segment_identify
       follow_after_authentication if params[:user][:com_id]
       session[:previous_url] || root_path
     end
@@ -40,5 +42,14 @@ class ApplicationController < ActionController::Base
     def follow_after_authentication
       comedian = Comedian.find(params[:user][:com_id])
       current_user.follow(comedian) unless current_user.fan_of?(comedian)
+    end
+
+    def segment_identify
+      Analytics.identify(
+        user_id: current_user.id,
+        traits: {
+          email: current_user.email,
+          created_at: DateTime.now
+        })
     end
 end

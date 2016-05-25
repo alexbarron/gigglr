@@ -13,6 +13,12 @@ class ComediansController < ApplicationController
 
   def show
     @shows = @comedian.future_shows
+    if !!current_user
+      Analytics.track(
+        user_id: current_user.id,
+        event: 'Viewed Comedian',
+        properties: { comedian: @comedian.name, comedian_id: @comedian.id })
+    end
   end
 
   def new
