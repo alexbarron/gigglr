@@ -6,8 +6,15 @@ class ComediansController < ApplicationController
   def index
     if params[:search]
       @comedians = Comedian.search(params[:search])
+      Analytics.track(
+        user_id: current_user.id,
+        event: 'Searched Comedian',
+        properties: { query: params[:search] })
     else
       @comedians = Comedian.all_with_shows_and_users
+      Analytics.track(
+        user_id: current_user.id,
+        event: 'Viewed Comedians Index')
     end
   end
 
@@ -28,6 +35,10 @@ class ComediansController < ApplicationController
   def create
     @comedian = Comedian.new(comedian_params)
     if @comedian.save
+      Analytics.track(
+        user_id: current_user.id,
+        event: 'Created Comedian',
+        properties: { comedian: @comedian.name, comedian_id: @comedian.id })
       redirect_to @comedian, notice: 'Comedian added successfully' 
     else
       render :new
@@ -39,6 +50,10 @@ class ComediansController < ApplicationController
 
   def update
     if @comedian.update(comedian_params)
+      Analytics.track(
+        user_id: current_user.id,
+        event: 'Updated Comedian',
+        properties: { comedian: @comedian.name, comedian_id: @comedian.id })
       redirect_to @comedian, notice: 'Comedian updated successfully'
     else
       render :edit
@@ -52,6 +67,9 @@ class ComediansController < ApplicationController
 
   def ticketmaster_search
     if params[:name]
+      Analytics.track(
+        user_id: current_user.id,
+        event: 'Searched Ticketmaster Comedians')
       @results = Comedian.search_ticketmaster(params[:name])
     else
       @results = []
@@ -60,6 +78,10 @@ class ComediansController < ApplicationController
 
   def add_ticketmaster_comedian
     @comedian = Comedian.add_ticketmaster_comedian(params[:ticketmaster_id])
+    Analytics.track(
+        user_id: current_user.id,
+        event: 'Added Comedian from Ticketmaster',
+        properties: { comedian: @comedian.name, comedian_id: @comedian.id })
     redirect_to @comedian
   end
 
