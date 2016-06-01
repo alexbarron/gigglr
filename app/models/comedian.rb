@@ -4,7 +4,19 @@ class Comedian < ActiveRecord::Base
 	has_many :passive_relationships, class_name: "Relationship", foreign_key: "comedian_id", dependent: :destroy
 	has_many :users, through: :passive_relationships
 	validates :name, presence: true
-	has_attached_file :picture, styles: { medium: "300x300>", thumb: "100x100>" }, default_url: ":style/default.jpg"
+	has_attached_file :picture, 
+										styles: { medium: "300x300>", thumb: "100x100>" }, 
+										default_url: ":style/default.jpg",
+										url: ":s3_domain_url",
+										path: "public/avatars/:id/:style_:basename.:extension",
+										storage: :fog,
+										fog_credentials: { 
+											provider: 'AWS',
+											aws_access_key_id: ENV["AWS_ACCES_KEY_ID"],
+											aws_secret_access_key: ENV["AWS_SECRET_ACCESS_KEY"],
+											region: ENV["AWS_REGION"]
+											},
+										fog_directory: ENV["FOG_DIRECTORY"]
 	validates_attachment_content_type :picture, content_type: /\Aimage\/.*\Z/
 
 	def self.search(search)

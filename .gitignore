@@ -23,3 +23,5 @@ todo.txt
 /config/secrets.yml
 
 /public
+
+.env

@@ -4,7 +4,7 @@ class RelationshipsController < ApplicationController
 	def create
 		@comedian = Comedian.find(params[:comedian_id])
 		current_user.follow(@comedian)
-    Analytics.track(
+		Analytics.track(
       user_id: current_user.id,
       event: 'Followed Comedian',
       properties: { comedian: @comedian.name, comedian_id: @comedian.id })
