@@ -5,7 +5,7 @@
 	<%= link_to 'Delete', venue_path(@venue), method: :delete, data: { confirm: "Are you sure?" } %>
 <% end %>
 
-<h2>Shows at this venue</h2>
+<h3>Upcoming Shows at <%= @venue.name %></h3>
 <% if @shows.empty? %>
 	<p>Sorry, no shows scheduled here yet!</p>
 <% else %>
