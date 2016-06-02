@@ -1,15 +1,21 @@
-<h3>Most Popular Comedians</h3>
+<h3>Popular Comedians With Upcoming Shows</h3>
+<p>Don't see your favorite comedian? Try searching for them.</p>
 
+<%= link_to "See Top 20 Comedians", comedians_path(search: ""), class: 'btn btn-primary' %>
 <%= comedians_index_options %>
 
 <div class="row">
 	<div class="col-md-12">
-			<% @comedians.in_groups_of(2) do |group| %>
-				<div class="row">
-					<% group.compact.each do |comedian| %>
-						<%= render partial: 'comedian_box', locals: { comedian: comedian} %>
-					<% end %>
-				</div>
-		<% end %>
+			<% if @comedians.empty? %>
+        <h3>Hmm...looks like we haven't added that comedian yet!</h3>
+      <% else %>
+        <% @comedians.in_groups_of(2) do |group| %>
+  				<div class="row">
+  					<% group.compact.each do |comedian| %>
+  						<%= render partial: 'comedian_box', locals: { comedian: comedian} %>
+  					<% end %>
+  				</div>
+  		  <% end %>
+      <% end %>
 	</div>
 </div>

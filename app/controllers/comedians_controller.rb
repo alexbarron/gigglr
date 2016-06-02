@@ -5,7 +5,7 @@ class ComediansController < ApplicationController
   
   def index
     if params[:search]
-      @comedians = Comedian.search(params[:search])
+      @comedians = Comedian.search(params[:search]).order("fan_count DESC").limit(20)
       Analytics.track(
         user_id: current_user.id,
         event: 'Searched Comedian',
